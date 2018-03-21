@@ -1,0 +1,8 @@
+{
+  "name": "Savour_Vendors",
+  "app_id": "7a01a40b",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

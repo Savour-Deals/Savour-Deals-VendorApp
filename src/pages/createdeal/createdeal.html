@@ -11,8 +11,43 @@
   </ion-navbar>
 
 </ion-header>
-
+<!-- Need start time, end time, days active, ($,%,BOGO), (Drink, appetizer, dessert, entire order, entree), photo -->
 
 <ion-content padding>
+  <ion-slides pager>
 
+    <ion-slide >
+      <h2>Item</h2>
+    </ion-slide>
+  
+    <ion-slide>
+      <h2>Discount</h2>
+    </ion-slide>
+  
+    <ion-slide>
+      <h2>Times</h2>
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Days</h2>
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Photo</h2>
+    </ion-slide>
+    
+    <ion-slide>
+      <h2>Review</h2>
+    </ion-slide>
+  </ion-slides>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button  color="primary"  class="nav" (click)="prevClick()">Previous</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="secondary"  class="nav" (click)="nextClick()">Next</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

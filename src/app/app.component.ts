@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import firebase from "firebase";
 import { HomePage } from '../pages/home/home';
+import { MainPage } from '../pages/main/main';
+import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   templateUrl: 'app.html'
 })

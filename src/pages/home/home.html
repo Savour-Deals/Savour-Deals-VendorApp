@@ -1,14 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Login</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding no-bounce>
+  <h2 align="center">Savour Vendor's Portal</h2>
+  <ion-item>
+      <ion-label floating> Email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+  <br>
+  <br>
+  <button ion-button color="primary" (click)="login(user)">Login</button>
+  <br>
+  <br>
+  <button ion-button color="primary" (click)="register()">Register</button>
+  <br>
+  <br>
+  <button ion-button color="facebook" (click)="signInWithFacebook()">Login with Facebook</button>
 </ion-content>

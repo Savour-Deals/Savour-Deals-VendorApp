@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ViewdealPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>My Deal</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngFor="let item of (deal | async)" >
+    <h1>{{item.rName}}</h1>
+    <div *ngIf="!loaded" class="loader">
+      <br><br><br><br>
+      <ion-spinner class="center"></ion-spinner>
+      <br><br><br><br>
+    </div>
+    <div class="crop" [hidden]="!loaded">
+      <img width="100%" [src]="item.photo" (load)="loaded = true" (click)="clicked()"/>
+    </div>
+    <br>
+    <h3>{{item.dealDesc}}</h3>
+    <p>Redeemed {{redeemedCount}} times.</p>
+  </div>
+</ion-content>

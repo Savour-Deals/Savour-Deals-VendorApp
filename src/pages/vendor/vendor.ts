@@ -5,6 +5,7 @@ import { AngularFireAction } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DealsPage } from '../deals/deals';
+import { CreatedealPage } from '../createdeal/createdeal';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,10 @@ export class VendorPage {
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
     );
+  }
+  createDealClicked(){
+    this.navCtrl.push(CreatedealPage, {
+    });
   }
 
   viewDealsClicked(id: string){

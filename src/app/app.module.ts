@@ -31,6 +31,7 @@ import { MainPage } from '../pages/main/main';
 import { RegisterPage } from '../pages/register/register';
 import { VendorPage } from '../pages/vendor/vendor';
 import { ViewdealPage } from '../pages/viewdeal/viewdeal';
+import { CreatedealPage } from '../pages/createdeal/createdeal';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ViewdealPage } from '../pages/viewdeal/viewdeal';
     VendorPage,
     MainPage,
     DealsPage,
-    ViewdealPage
+    ViewdealPage,
+    CreatedealPage
    ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { ViewdealPage } from '../pages/viewdeal/viewdeal';
     VendorPage,
     MainPage,
     DealsPage,
-    ViewdealPage
+    ViewdealPage,
+    CreatedealPage
   ],
   providers: [
     StatusBar,

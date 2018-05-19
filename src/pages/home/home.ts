@@ -19,11 +19,17 @@ export class HomePage {
   loader: any;
 
   constructor(private afauth: AngularFireAuth, private fb: Facebook, private platform: Platform, public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+    this.loader = this.loadingCtrl.create({
+
+    });
+    this.loader.present();
     this.afauth.authState.subscribe(res => {
       if (res && res.uid) {
-        this.navCtrl.setRoot(MainPage);
+        this.loader.dismiss();
         console.log('user is logged in');
+        this.navCtrl.setRoot(MainPage);
       } else {
+        this.loader.dismiss();
         console.log('user not logged in');
       }
     });
@@ -34,8 +40,6 @@ export class HomePage {
       this.presentLoading();
       const result = await this.afauth.auth.signInWithEmailAndPassword("test@test.com","123456");//user.email, user.password);
       if (result){
-        // this.navCtrl.setRoot(MainPage);
-        this.loader.dismiss();
       }
     } catch (e) {
       console.error(e);
@@ -44,7 +48,6 @@ export class HomePage {
         subTitle: 'Login information provided was incorrect. Please try again.',
         buttons: ['Okay']
       });
-      this.loader.dismiss();
       alert.present();
     }
   }
@@ -56,8 +59,6 @@ export class HomePage {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         firebase.auth().signInWithCredential(facebookCredential).then(success=>{
           if (success){
-            this.loader.dismiss();
-            // this.navCtrl.setRoot(MainPage);
           }
         }).catch((error) => { 
           console.log(error.code);
@@ -66,18 +67,14 @@ export class HomePage {
             subTitle: 'Sorry, we could not log you in with Facebook. Please try again.',
             buttons: ['Okay']
           });
-          this.loader.dismiss();
           alert.present();
         });
       }).catch((error) => { 
-        this.loader.dismiss();
       });
     }else {
       this.afauth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then((res) => {
-          // this.navCtrl.setRoot(MainPage);
-          this.loader.dismiss();
         });
     }
   }

@@ -17,14 +17,7 @@ export class MainPage {
   public locations: Observable<any[]>;
   public isCurrent = true;
   constructor(private platform: Platform, private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider) {
-    this.afauth.authState.subscribe(res => {
-      if (res && res.uid) {
-        console.log('user is logged in');
-      } else {
-        this.navCtrl.setRoot(HomePage);
-        console.log('user not logged in');
-      }
-    });
+
   }
 
   signout(){

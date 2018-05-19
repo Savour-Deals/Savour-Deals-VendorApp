@@ -21,12 +21,11 @@
         <h2>{{deal.dealDesc}}</h2>
       </button>
       <br><br>
-      <button *ngIf='(deals | async)?.length > 0' ion-button class="create" color="primary">Create New Deal</button>
     </ion-list>
     <div *ngIf='(deals| async)?.length === 0'>
         <h1>No deals found for {{place}}.</h1>
         <br><br>
-        <button ion-button class="create" color="primary">Create New Deal</button>
     </div>
+    <button ion-button class="create" color="primary" (click)="createDealClicked()">Create New Deal</button>
 </ion-content>
 

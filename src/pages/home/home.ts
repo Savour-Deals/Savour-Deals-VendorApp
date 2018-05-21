@@ -43,6 +43,7 @@ export class HomePage {
       }
     } catch (e) {
       console.error(e);
+      this.loader.dismiss();
       let alert = this.alertCtrl.create({
         title: 'Login Failed',
         subTitle: 'Login information provided was incorrect. Please try again.',
@@ -50,6 +51,7 @@ export class HomePage {
       });
       alert.present();
     }
+
   }
 
   signInWithFacebook() {
@@ -60,8 +62,10 @@ export class HomePage {
         firebase.auth().signInWithCredential(facebookCredential).then(success=>{
           if (success){
           }
+          this.loader.dismiss();
         }).catch((error) => { 
           console.log(error.code);
+          this.loader.dismiss();
           let alert = this.alertCtrl.create({
             title: 'Login Failed',
             subTitle: 'Sorry, we could not log you in with Facebook. Please try again.',
@@ -77,6 +81,7 @@ export class HomePage {
         .then((res) => {
         });
     }
+    this.loader.dismiss();
   }
 
   register() {

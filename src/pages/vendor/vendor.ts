@@ -27,8 +27,10 @@ export class VendorPage {
       )
     );
   }
-  createDealClicked(){
+  createDealClicked(id,name){
     this.navCtrl.push(CreatedealPage, {
+      ID: id,
+      name: name
     });
   }
 

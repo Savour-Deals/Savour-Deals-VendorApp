@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides,Navbar, AlertController  } from 'ionic-angular';
 import * as moment from 'moment';
+import { ImagePicker } from '@ionic-native/image-picker';
+
 /**
  * Generated class for the CreatedealPage page.
  *
@@ -24,7 +26,7 @@ export class CreatedealPage {
   atFront: boolean = true;
   allDay: boolean = true;
   
-  min: string = moment().toISOString();
+  min: string = moment().format('YYYY-MM-DD');
 
   dealType:string;
   startDate:string;
@@ -32,6 +34,11 @@ export class CreatedealPage {
   endDate:string;
   endTime:string;
   discount: string;
+  img:string;
+
+
+  dispStart:string;
+  dispEnd:string;
 
   dealString: string;
   dealStart: number;
@@ -49,12 +56,14 @@ export class CreatedealPage {
 
   discountType: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private imagePicker: ImagePicker) {
     this.discountType = "percent";
     this.dealType = "Entree";
     this.rID = this.navParams.get("ID");
     this.rName = this.navParams.get("name");
   }
+
+
 
   ionViewDidLoad() {
     this.slides.lockSwipes(true);
@@ -78,6 +87,7 @@ export class CreatedealPage {
   }
 
   prevClick(){
+    this.atEnd = false;
     this.slides.lockSwipes(false);
     this.slides.slidePrev();
     this.slides.lockSwipes(true);
@@ -88,41 +98,21 @@ export class CreatedealPage {
     switch(this.slides.getActiveIndex()) {
       case 1: 
         if(this.discountType != "BOGO" && this.discount === undefined){
-          let alert = this.alertCtrl.create({
-            title: 'Notice',
-            subTitle: 'Please select a discount to continue.',
-            buttons: [{text: 'Okay'}]
-          });
-          alert.present();
+          this.presentAlert('Please select a discount to continue.');
           break;
         }
         this.slideNext();
         break;
       case 2:
         if (this.startDate > this.endDate){
-          let alert = this.alertCtrl.create({
-            title: 'Notice',
-            subTitle: 'Start date can not be greator than end date.',
-            buttons: [{text: 'Okay'}]
-          });
-          alert.present();
+          this.presentAlert('Start date can not be greator than end date.',);
           break;
         }
         if (this.startDate === undefined || this.endDate === undefined){
-          let alert = this.alertCtrl.create({
-            title: 'Notice',
-            subTitle: 'Please select both a start and end date to continue.',
-            buttons: [{text: 'Okay'}]
-          });
-          alert.present();
+          this.presentAlert('Please select both a start and end date to continue.');
           break;
         }else if(!this.allDay && (this.endTime === undefined || this.startTime === undefined)){
-          let alert = this.alertCtrl.create({
-            title: 'Notice',
-            subTitle: 'Please check your start and end times or select "All Day" to continue.',
-            buttons: [{text: 'Okay'}]
-          });
-          alert.present();
+          this.presentAlert('Please check your start and end times or select "All Day" to continue.');   
           break;
         }
         this.slideNext();
@@ -136,12 +126,14 @@ export class CreatedealPage {
           }
         }
         if(!oneSelected){
-          let alert = this.alertCtrl.create({
-            title: 'Notice',
-            subTitle: 'Please at least one day for this deal to run on.',
-            buttons: [{text: 'Okay'}]
-          });
-          alert.present();
+          this.presentAlert('Please select at least one day for this deal to run on.');
+          break;
+        }
+        this.slideNext();
+        break;
+      case 4:
+        if (this.img === undefined){
+          this.presentAlert('Please select a photo.');
           break;
         }
         this.slideNext();
@@ -149,6 +141,15 @@ export class CreatedealPage {
       default:
         this.slideNext();
     }
+  }
+
+  presentAlert(str: string){
+    let alert = this.alertCtrl.create({
+      title: 'Notice',
+      subTitle: str,
+      buttons: [{text: 'Okay'}]
+    });
+    alert.present();
   }
 
   slideNext(){
@@ -167,9 +168,13 @@ export class CreatedealPage {
       if (!this.allDay){
         this.dealStart = moment(this.startDate + "T" + this.startTime).unix();
         this.dealEnd = moment(this.endDate + "T" + this.endTime).unix();
+        this.dispStart = moment(this.startDate + "T" + this.startTime).format('LLLL');
+        this.dispEnd = moment(this.endDate + "T" + this.endTime).format('LLLL');
       }else{
         this.dealStart = moment(this.startDate).unix();
         this.dealEnd = moment(this.endDate).unix();
+        this.dispStart = moment(this.startDate).format('LLLL');
+        this.dispEnd = moment(this.endDate).format('LLLL')
       }
       if(this.discountType == "BOGO"){
         this.dealString = "Buy One Get One " + this.dealType;
@@ -218,6 +223,19 @@ export class CreatedealPage {
 
   getDay(day){
     return this.dealDays[day];
+  }
+
+  openGallery (): void {
+    let options = {
+      maximumImagesCount: 1,
+      quality: 30,
+      outputType: 1
+    }
+  
+    this.imagePicker.getPictures(options).then(
+      imageSource => this.img = 'data:image/jpeg;base64,'+imageSource[0],
+      err => console.log('uh oh')
+    );
   }
 
 

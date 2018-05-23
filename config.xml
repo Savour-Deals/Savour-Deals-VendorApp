@@ -100,6 +100,9 @@
     </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
-    <engine name="ios" spec="^4.5.4" />
     <allow-navigation href="http://172.20.10.8:8100" />
+    <engine name="ios" spec="~4.5.4" />
+    <plugin name="com.synconset.imagepicker" spec="~2.1.10">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="This app needs permission to access your photos for deal and restaurant images" />
+    </plugin>
 </widget>

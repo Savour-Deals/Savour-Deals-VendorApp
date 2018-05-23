@@ -14,6 +14,7 @@ import { Device } from '@ionic-native/device';
 import { Facebook } from '@ionic-native/facebook';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 //etc.
 import { IonicImageLoader } from 'ionic-image-loader';
@@ -74,7 +75,8 @@ import { CreatedealPage } from '../pages/createdeal/createdeal';
     EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     VendorsProvider,
-    DealsProvider
+    DealsProvider,
+    ImagePicker
   ]
 })
 export class AppModule {}

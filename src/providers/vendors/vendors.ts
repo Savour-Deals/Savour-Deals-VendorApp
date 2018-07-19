@@ -19,9 +19,9 @@ export class VendorsProvider {
 
   getRestaurantsByID(ID: string){
     console.log(ID);
-    return this.af.list('Restaurants', ref => ref.orderByChild('vendorID').equalTo(ID)).snapshotChanges();
+    return this.af.list('Restaurants', ref => ref.orderByKey().equalTo(ID)).snapshotChanges();
   }
-  getRestaurantByName(ID: string){
+  getRestaurantByPlaceID(ID: string){
     console.log(ID);
     return this.af.list('Restaurants', ref => ref.orderByChild('placeID').equalTo(ID)).snapshotChanges();
   }

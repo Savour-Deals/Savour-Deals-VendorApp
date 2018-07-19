@@ -6,7 +6,7 @@ import { User } from '../../models/user';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import { MainPage } from "../main/main";
 
 @Component({
@@ -38,7 +38,7 @@ export class HomePage {
   async login(user: User) {
     try {
       this.presentLoading();
-      const result = await this.afauth.auth.signInWithEmailAndPassword("test@test.com","123456");//user.email, user.password);
+      const result = await this.afauth.auth.signInWithEmailAndPassword(user.email, user.password);
       if (result){
       }
     } catch (e) {
@@ -56,7 +56,8 @@ export class HomePage {
 
   signInWithFacebook() {
     this.presentLoading();
-    if (this.platform.is('cordova')) {
+    
+    if (this.platform.is('cordova') && !this.platform.is('core')) {
       return this.fb.login(['email', 'public_profile']).then(res => {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         firebase.auth().signInWithCredential(facebookCredential).then(success=>{
@@ -75,6 +76,8 @@ export class HomePage {
         });
       }).catch((error) => { 
       });
+    }else if (this.platform.is('core')){
+      this.afauth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
     }else {
       this.afauth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())

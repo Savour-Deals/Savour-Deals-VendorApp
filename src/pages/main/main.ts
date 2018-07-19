@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { VendorPage } from '../vendor/vendor';
 import { VendorsProvider } from '../../providers/vendors/vendors';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 
 @IonicPage()
@@ -14,9 +13,12 @@ import { VendorsProvider } from '../../providers/vendors/vendors';
   templateUrl: 'main.html',
 })
 export class MainPage {
-  public locations: Observable<any[]>;
+  public locations = [];
   public isCurrent = true;
-  constructor(private platform: Platform, private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider) {
+  public user: any;
+  public isVendor: boolean = true;
+  public isLoaded: boolean = false;
+  constructor( private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
 
   }
 
@@ -29,11 +31,36 @@ export class MainPage {
   }
 
   ionViewDidLoad() {
-    if (this.afauth.auth.currentUser.uid == "jf1ZH0JKswXvVo9dEj1HlSiZNUr2"){
-      this.locations = this.vendProv.getRestaurants();
-    }else{
-      this.locations = this.vendProv.getRestaurantsByID(this.afauth.auth.currentUser.uid);
-    }
+    this.af.object('Users/'+this.afauth.auth.currentUser.uid).snapshotChanges().subscribe( obj =>{
+          this.user = obj.payload.val();
+          if (this.user.role == "admin"){
+            this.isVendor = true;
+            this.vendProv.getRestaurants().subscribe(locs=>{
+              locs.forEach(loc => {
+                this.locations.push(loc.payload.val());
+              });
+              this.isLoaded = true;
+            });
+          }else if (this.user.role == "vendor"){
+            this.isVendor = true;
+            var locations = [];
+            obj.payload.child("locations").forEach(function(loc) {
+              if (loc.val() === true){
+                locations.push(loc.key);
+              }
+            });
+            for (let location of locations){
+              this.vendProv.getRestaurantsByID(location).subscribe(locs=>{
+                locs.forEach(loc => { 
+                  this.isLoaded = true;
+                  this.locations.push(loc.payload.val());
+                });
+              });
+            }
+          }else{
+            this.isVendor = false;
+          }
+      });
   }
 
   locationClicked(placeName, placeID){

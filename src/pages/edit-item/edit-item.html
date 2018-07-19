@@ -1,0 +1,14 @@
+<ion-content padding>
+    <h4>{{title}}</h4>
+    <ion-input type="input" placeholder="{{name}}" value="{{name}}"></ion-input>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button (click)="submit()">Submit</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button type="submit" color="secondary" (click)="close()">Cancel</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

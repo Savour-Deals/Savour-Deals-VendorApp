@@ -1,6 +1,6 @@
 {
-  "name": "Savour Vendors",
-  "app_id": "7a01a40b",
+  "name": "Savour_Vendor_App",
+  "app_id": "",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

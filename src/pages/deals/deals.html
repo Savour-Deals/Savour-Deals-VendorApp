@@ -13,18 +13,54 @@
 
 
 <ion-content padding>
-    <div *ngIf='(deals | async)?.length > 0'>
+    <div *ngIf='dealsLoaded'>
       <h1>{{place}} Deals</h1>
     </div>
-    <ion-list>
-      <button ion-item *ngFor="let deal of deals | async" (click)="dealClicked(deal.key)">
+    <ion-list *ngIf='dealsLoaded'>
+      <ion-list-header *ngIf="hasGroup(0)" (click)="accordianClick(0)" color="primary">
+            Active Deals
+            <ion-icon color="success" item-right [name]="isGroupShown(0) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+      </ion-list-header>
+      <button ion-item *ngFor="let deal of activeDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(0) === false">
+        <ion-avatar item-start>
+          <img-loader src="{{deal.photo}}" useImg></img-loader>
+        </ion-avatar>
         <h2>{{deal.dealDesc}}</h2>
+        <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
+        <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
+      </button>
+      <br><br>
+      <ion-list-header *ngIf="hasGroup(1)" (click)="accordianClick(1)" color="primary">
+          Upcoming Deals
+          <ion-icon color="success" item-right [name]="isGroupShown(1) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+      </ion-list-header>
+      <button ion-item *ngFor="let deal of upcomingDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(1) === false">
+          <ion-avatar item-start>
+            <img-loader src="{{deal.photo}}" useImg></img-loader>
+          </ion-avatar>
+          <h2>{{deal.dealDesc}}</h2>
+          <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
+          <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
+      </button>
+      <br><br>
+      <ion-list-header *ngIf="hasGroup(2)" (click)="accordianClick(2)" color="primary">
+          Expired Deals
+          <ion-icon color="success" item-right [name]="isGroupShown(2) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+      </ion-list-header>
+      <button ion-item *ngFor="let deal of expiredDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(2) === false">
+          <ion-avatar item-start>
+            <img-loader src="{{deal.photo}}" useImg></img-loader>
+          </ion-avatar>
+          <h2>{{deal.dealDesc}}</h2>
+          <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
+          <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
       </button>
       <br><br>
     </ion-list>
-    <div *ngIf='(deals| async)?.length === 0'>
-        <h1>No deals found for {{place}}.</h1>
-        <br><br>
+    <div *ngIf='!dealsLoaded'>
+      <br><br>
+      <h1>No deals found for {{place}}.</h1>
+      <br><br>
     </div>
     <button ion-button class="create" color="primary" (click)="createDealClicked()">Create New Deal</button>
 </ion-content>

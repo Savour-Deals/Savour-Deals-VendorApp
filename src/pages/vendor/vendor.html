@@ -13,19 +13,13 @@
 
 <ion-content padding >
   <div *ngFor="let loc of location | async">
-    <div *ngIf="!loaded" class="loader">
-      <br><br><br><br>
-      <ion-spinner class="center"></ion-spinner>
-      <br><br><br><br>
-    </div>
-    <div class="crop" [hidden]="!loaded">
-      <img width="100%" [src]="loc.Photo" (load)="loaded = true"/>
-    </div>
+    <img-loader width="100%" height="200px" class="dealimg" src="{{loc.Photo}}" useImg></img-loader>
     <br>
+    <h1>{{loc.Name}}</h1>
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button class="center" color="primary" >Edit Location</button>
+          <button ion-button class="center" color="primary" (click)="editLocation(loc.key)">Edit Location</button>
         </ion-col>
         <ion-col>
           <button ion-button  class="center" color="secondary" (click)="viewDealsClicked(loc.key)">View Deals</button>
@@ -33,10 +27,10 @@
       </ion-row>
     </ion-grid>
     <button ion-button class="center" color="primary" class="create_button" (click)="createDealClicked(loc.key,loc.Name)">Create New Deal</button>
-    <h1>{{loc.Name}}</h1>
+    <button ion-button class="center" color="primary" class="create_button" (click)="showMenu(loc.Menu)">Menu</button>
+    <h3>About</h3>
     <p>{{loc.Address}}</p>
     <div class="angular-with-newlines">
-        <h3>About</h3>
         {{loc.Desc}}
     </div>
   </div>

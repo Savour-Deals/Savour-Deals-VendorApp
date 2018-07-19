@@ -16,16 +16,32 @@
 <ion-content padding>
   <div *ngFor="let item of (deal | async)" >
     <h1>{{item.rName}}</h1>
-    <div *ngIf="!loaded" class="loader">
-      <br><br><br><br>
-      <ion-spinner class="center"></ion-spinner>
-      <br><br><br><br>
-    </div>
-    <div class="crop" [hidden]="!loaded">
-      <img width="100%" [src]="item.photo" (load)="loaded = true" (click)="clicked()"/>
-    </div>
+    <img-loader class="dealimg" src="{{item.photo}}" useImg></img-loader>
     <br>
     <h3>{{item.dealDesc}}</h3>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngIf="item.activeDays.Sun==true" class="active-day">Sun</ion-col><ion-col *ngIf="item.activeDays.Sun==false" class="inactive-day">Sun</ion-col>
+        <ion-col *ngIf="item.activeDays.Mon==true" class="active-day">Mon</ion-col><ion-col *ngIf="item.activeDays.Mon==false" class="inactive-day">Mon</ion-col>
+        <ion-col *ngIf="item.activeDays.Tues==true" class="active-day">Tues</ion-col><ion-col *ngIf="item.activeDays.Tues==false" class="inactive-day">Tues</ion-col>
+        <ion-col *ngIf="item.activeDays.Wed==true" class="active-day">Wed</ion-col><ion-col *ngIf="item.activeDays.Wed==false" class="inactive-day">Wed</ion-col>    
+        <ion-col *ngIf="item.activeDays.Thur==true" class="active-day">Thur</ion-col><ion-col *ngIf="item.activeDays.Thur==false" class="inactive-day">Thur</ion-col>
+        <ion-col *ngIf="item.activeDays.Fri==true" class="active-day">Fri</ion-col><ion-col *ngIf="item.activeDays.Fri==false" class="inactive-day">Fri</ion-col>
+        <ion-col *ngIf="item.activeDays.Sat==true" class="active-day">Sat</ion-col><ion-col *ngIf="item.activeDays.Sat==false" class="inactive-day">Sat</ion-col>
+      </ion-row>
+      <br>
+      <br>
+      <ion-row>
+        <ion-col><strong>Start Day</strong></ion-col>
+        <ion-col><strong>End Day</strong></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>{{start}}</ion-col>
+        <ion-col>{{end}}</ion-col>
+      </ion-row>
+    </ion-grid>
+    <p>Active: {{times}}</p>
+
     <p>Redeemed {{redeemedCount}} times.</p>
   </div>
 </ion-content>

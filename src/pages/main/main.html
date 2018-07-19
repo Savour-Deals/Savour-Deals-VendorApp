@@ -18,11 +18,16 @@
 
 
 <ion-content padding>
-  <div *ngIf='isCurrent == true'> 
+  <div *ngIf='isCurrent == true' [hidden]="isVendor==false">
+    <div *ngIf="locations?.length<1" [hidden]="!isLoaded">
+      <h1>You have no locations!</h1>
+    </div>
     <ion-list>
-      <button ion-item *ngFor="let location of locations | async" (click)="locationClicked(location.payload.val().Name, location.payload.val().placeID)">
-        <h2>{{location.payload.val().Name}}</h2>
-        
+      <button ion-item *ngFor="let location of locations" (click)="locationClicked(location.Name, location.placeID)">
+        <ion-avatar item-start>
+          <img-loader src="{{location.Photo}}" useImg></img-loader>
+        </ion-avatar>
+        <h2>{{location.Name}}</h2>
       </button>
     </ion-list>
   </div>
@@ -31,5 +36,14 @@
       <br>
       <br>
       <button ion-button color="primary" (click)="beginSubscription()">Subscribe</button>
-    </div>
+  </div>
+  <div *ngIf="isVendor == false">
+    <h1>Looks like you are not a vendor!</h1>
+    <h1>Contact us: </h1>
+    <a href="https://www.savourdeals.com/contact/">Contact</a>
+    <br>
+    <br>
+    <h1>Sign-up:</h1>
+    <a href="https://www.savourdeals.com/signup/#Sign-Up">Sign Up</a>
+  </div>
 </ion-content>

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { VendorsProvider } from '../../providers/vendors/vendors';
-import { AngularFireAction } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DealsPage } from '../deals/deals';
 import { CreatedealPage } from '../createdeal/createdeal';
+import { EditVendorPage } from '../edit-vendor/edit-vendor';
 
 @IonicPage()
 @Component({
@@ -18,20 +18,22 @@ export class VendorPage {
   private ID: string;
   public location: Observable<any[]>;
   public loaded: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider) {
+  constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider) {
     this.placeName = navParams.get('name');
     this.ID = navParams.get('ID');
-    this.location = this.vendProv.getRestaurantByName(this.ID).pipe(
+    this.location = this.vendProv.getRestaurantByPlaceID(this.ID).pipe(
       map(changes => 
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
     );
   }
+  
   createDealClicked(id,name){
-    this.navCtrl.push(CreatedealPage, {
+    let profileModal = this.modalCtrl.create(CreatedealPage, {
       ID: id,
       name: name
-    });
+    }, {enableBackdropDismiss : false});
+    profileModal.present();
   }
 
   viewDealsClicked(id: string){
@@ -39,6 +41,15 @@ export class VendorPage {
       ID: id,
       name: this.placeName
     });
+  }
+
+  editLocation(id: string){
+    let profileModal = this.modalCtrl.create(EditVendorPage, {loc: this.location}, {enableBackdropDismiss : false});
+    profileModal.present();
+  }
+
+  showMenu(url: string){
+    window.open(url, "_blank"); 
   }
 
 }

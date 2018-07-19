@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MainPage } from './main';
+import { IonicImageLoader } from 'ionic-image-loader';
 
 @NgModule({
   declarations: [
-    MainPage,
   ],
   imports: [
     IonicPageModule.forChild(MainPage),
+    IonicImageLoader
   ],
 })
 export class MainPageModule {}

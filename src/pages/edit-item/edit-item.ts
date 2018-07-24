@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { VendorsProvider } from '../../providers/vendors/vendors';
 
 /**
  * Generated class for the EditNamePage page.
@@ -14,16 +15,22 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'edit-item.html',
 })
 export class EditItemPage {
-  public name: string;
+
+  public location: any;
   public item: number;
-  public title: string;
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
-    this.name = navParams.get('name');
+  public titles: string[];
+  public values: any[];
+  public description: String;
+
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private vendProv: VendorsProvider) {
+    this.location = navParams.get('location');
     this.item = navParams.get('item');
     if (this.item == 0){
-      this.title = "Enter new vendor name:"
+      this.titles = ['Name', 'Address', 'Menu'];
+      this.values = [this.location.Name,this.location.Address,this.location.Menu];
     }else if (this.item == 1){
-      this.title = "Enter new address:"
+      this.titles = ["Description"];
+      this.values = [this.location.Desc];
     }
   }
 
@@ -35,7 +42,18 @@ export class EditItemPage {
   }
 
   submit(){
+    var data = {};
+    if (this.item == 0){
+      data = {'Name': this.values[0], 'Address': this.values[1], 'Menu': this.values[2]};
+    }else if (this.item == 1){
+      data = {"Desc": this.values[0]};
+    }
+    this.vendProv.editVendorInfo(this.location.key, data);
     this.viewCtrl.dismiss();
+  }
+
+  getValue(i){
+    return this.values[i];
   }
 
 }

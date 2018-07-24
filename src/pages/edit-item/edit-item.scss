@@ -1,3 +1,19 @@
 page-edit-item {
-
+    .nav {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .desc{
+        height: 100%;
+        border-color: black;
+        border-width: 10px;
+    }
+    .description {
+        width: 100%;
+        height: 100%;
+        border-width: 10px;
+        border-color: black;
+        border-radius: 0;
+    }
 }

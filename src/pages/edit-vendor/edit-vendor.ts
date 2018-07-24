@@ -1,6 +1,5 @@
-
 import { Component } from '@angular/core';
-import { NavParams, ModalController, ViewController, PopoverController } from 'ionic-angular';
+import { NavParams, ModalController, ViewController } from 'ionic-angular';
 import { VendorModel } from '../../models/restaurant';
 import { Observable } from 'rxjs';
 import { EditItemPage } from '../edit-item/edit-item';
@@ -34,7 +33,7 @@ export class EditVendorPage {
     }
   };
   
-  constructor(private popoverCtrl: PopoverController, public viewCtrl: ViewController, public modalCtrl: ModalController, public navParams: NavParams) {
+  constructor(public viewCtrl: ViewController, public modalCtrl: ModalController, public navParams: NavParams) {
     this.obs = navParams.get('loc');
     this.obs.subscribe(loc =>{
       const location = (loc as any);
@@ -55,19 +54,19 @@ export class EditVendorPage {
     console.log('ionViewDidLoad EditVendorPage');
   }
 
-  editInfo(name: string, item: number){
+  editInfo(loc: any, item: number){
     if (item == 0){
-      let popover = this.popoverCtrl.create(EditItemPage, {
+      let popover = this.modalCtrl.create(EditItemPage, {
         item: item,
-        name: name
-      }, { cssClass: 'custom-popover'});
+        location: loc
+      }, { cssClass: 'my-modal-inner my-stretch'});
       popover.present({
       });
     }else if (item == 1){
-      let popover = this.popoverCtrl.create(EditItemPage, {
+      let popover = this.modalCtrl.create(EditItemPage, {
         item: item,
-        name: name
-      }, { cssClass: 'custom-popover'});
+        location: loc
+      }, { cssClass: 'my-modal-inner my-stretch'});
       popover.present({
       });
     }

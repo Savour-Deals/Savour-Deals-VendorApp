@@ -14,6 +14,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class MainPage {
   public locations = [];
+  public keys = [];
   public isCurrent = true;
   public user: any;
   public isVendor: boolean = true;
@@ -37,23 +38,36 @@ export class MainPage {
             this.isVendor = true;
             this.vendProv.getRestaurants().subscribe(locs=>{
               locs.forEach(loc => {
-                this.locations.push(loc.payload.val());
+                var idx = this.keys.indexOf(loc.payload.key)
+                if (idx > -1){
+                  this.locations[idx] = loc.payload.val();
+                }else{
+                  this.locations.push(loc.payload.val());
+                  this.keys.push(loc.payload.key);
+                }
               });
               this.isLoaded = true;
             });
           }else if (this.user.role == "vendor"){
             this.isVendor = true;
-            var locations = [];
-            obj.payload.child("locations").forEach(function(loc) {
-              if (loc.val() === true){
-                locations.push(loc.key);
+            var l = [];
+            //Get locations this vendor has
+            obj.payload.child("locations").forEach(function(temp) {
+              if (temp.val() === true){
+                l.push(temp.key);
               }
             });
-            for (let location of locations){
+            for (let location of l){
               this.vendProv.getRestaurantsByID(location).subscribe(locs=>{
                 locs.forEach(loc => { 
                   this.isLoaded = true;
-                  this.locations.push(loc.payload.val());
+                  var idx = this.keys.indexOf(loc.payload.key)
+                  if (idx > -1){
+                    this.locations[idx] = loc.payload.val();
+                  }else{
+                    this.locations.push(loc.payload.val());
+                    this.keys.push(loc.payload.key);
+                  }
                 });
               });
             }
@@ -69,6 +83,7 @@ export class MainPage {
       ID: placeID
     });
   }
+
   beginSubscription(){
 
   }

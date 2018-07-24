@@ -1,0 +1,21 @@
+<ion-content scroll>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of imgArr; let i=index" (click)="select(image, i)" [ngClass]="getClass(i)">
+                <img class="ourimg" src="{{image}}" >
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-grid >
+        <ion-row>
+        <ion-col>
+            <button ion-button  color="primary"  class="nav" (click)="submit()">Okay</button>
+        </ion-col>
+        <ion-col>
+            <button ion-button color="secondary"  class="nav" (click)="cancel()">Cancel</button>
+        </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

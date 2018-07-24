@@ -1,14 +1,26 @@
 <ion-content padding>
-    <h4>{{title}}</h4>
-    <ion-input type="input" placeholder="{{name}}" value="{{name}}"></ion-input>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button (click)="submit()">Submit</button>
-        </ion-col>
-        <ion-col>
-          <button ion-button type="submit" color="secondary" (click)="close()">Cancel</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div *ngIf="item===0">
+    <ion-item *ngFor='let title of titles; let i=index'>
+      <ion-label stacked>{{title}}</ion-label>
+      <ion-input type="input" [placeholder]="getValue(i)" [(ngModel)]="values[i]"></ion-input>
+    </ion-item>
+  </div>
+  <div *ngIf="item===1">
+      <h3>Description</h3>
+      <div class="desc">
+          <ion-textarea class="description" [(ngModel)]="values[0]" rows="15"></ion-textarea>
+      </div>
+  </div>
 </ion-content>
+<ion-footer>
+  <ion-grid >
+    <ion-row>
+      <ion-col>
+        <button ion-button  color="primary"  class="nav" (click)="submit()">Submit</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="secondary"  class="nav" (click)="close()">Cancel</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -133,66 +133,46 @@
             <ion-col></ion-col>
           </ion-row>
         </ion-grid>
-        <ion-item>
-          <ion-checkbox [(ngModel)]="dealDays.Mon" hidden="true"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="dealDays.Mon" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Mon==true" class="active-day" (click)="dealDays.Mon=false;"><span>Monday</span></ion-label>
           <ion-label *ngIf="dealDays.Mon==false" class="inactive-day" (click)="dealDays.Mon=true;"><span>Monday</span></ion-label>
-        </ion-item>
-        <ion-item>
+ 
           <ion-checkbox [(ngModel)]="dealDays.Tues" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Tues==true" class="active-day" (click)="dealDays.Tues=false;"><span>Tuesday</span></ion-label>
           <ion-label *ngIf="dealDays.Tues==false" class="inactive-day" (click)="dealDays.Tues=true;"><span>Tuesday</span></ion-label>
-        </ion-item>
-        <ion-item>
+          
           <ion-checkbox [(ngModel)]="dealDays.Wed" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Wed==true" class="active-day" (click)="dealDays.Wed=false;"><span>Wednesday</span></ion-label>
           <ion-label *ngIf="dealDays.Wed==false" class="inactive-day" (click)="dealDays.Wed=true;"><span>Wednesday</span></ion-label>
-        </ion-item>
-        <ion-item>
+   
           <ion-checkbox [(ngModel)]="dealDays.Thurs" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Thurs==true" class="active-day" (click)="dealDays.Thurs=false;"><span>Thursday</span></ion-label>
           <ion-label *ngIf="dealDays.Thurs==false" class="inactive-day" (click)="dealDays.Thurs=true;"><span>Thursday</span></ion-label>
-        </ion-item>    
-        <ion-item>
+ 
           <ion-checkbox [(ngModel)]="dealDays.Fri" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Fri==true" class="active-day" (click)="dealDays.Fri=false;"><span>Friday</span></ion-label>
           <ion-label *ngIf="dealDays.Fri==false" class="inactive-day" (click)="dealDays.Fri=true;"><span>Friday</span></ion-label>     
-        </ion-item>     
-        <ion-item>
+
           <ion-checkbox [(ngModel)]="dealDays.Sat" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Sat==true" class="active-day" (click)="dealDays.Sat=false;"><span>Saturday</span></ion-label>
           <ion-label *ngIf="dealDays.Sat==false" class="inactive-day" (click)="dealDays.Sat=true;"><span>Saturday</span></ion-label> 
-        </ion-item>          
-        <ion-item>
+
           <ion-checkbox [(ngModel)]="dealDays.Sun" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.Sun==true" class="active-day" (click)="dealDays.Sun=false;"><span>Sunday</span></ion-label>
           <ion-label *ngIf="dealDays.Sun==false" class="inactive-day" (click)="dealDays.Sun=true;"><span>Sunday</span></ion-label>  
-        </ion-item>    
       </div>
     </ion-slide>
 
     <ion-slide ng-init="loadImages()">
-        <h3>Select the best photo for this deal!</h3>
-        <br>
-        <br>
-        <!-- <div class="placeholder" [hidden]="loaded">
-          <ion-spinner *ngIf="startedUpload" class="custom-spinner"></ion-spinner>
-        </div> -->
+      <h3>Select the best photo!</h3>
+      <div class="placeholder">
         <img class="dealimg" *ngIf="downloadURL; let url" [src]="url" alt="Image from AngularFireStorage" (load)="loaded = true">
-        <br>
-        <br>
-        <input  type="file" (change)="upload($event)" accept="image/*" hidden="true" #file/>
-        <button ion-button color="primary"  class="center" (click)="file.click()">Select Photo</button>
-        <br>
-        <h3>Or select one of ours!</h3>
-        <br>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of imgArr; let i=index" (click)="imgSelect(image, i)" [ngClass]="getClass(i)">
-              <img class="ourimg" src="{{image}}" >
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+      </div>
+      <br>
+      <input  type="file" (change)="upload($event)" accept="image/*" hidden="true" #file/>
+      <button ion-button color="primary"  class="center" (click)="file.click()">Select Photo</button>
+      <br>
+      <button ion-button color="secondary"  class="center" (click)="openSelector()">Use One of Ours!</button>
     </ion-slide>
     
     <ion-slide>

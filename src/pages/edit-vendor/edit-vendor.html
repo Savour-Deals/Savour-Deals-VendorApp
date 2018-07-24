@@ -15,14 +15,15 @@
 
 
 <ion-content padding>
+  <!-- Coming Soon! -->
     <ion-list *ngFor="let loc of (obs | async)">
-      <ion-item (click)="editInfo(loc.Name,0)">
-        <h2>Name</h2>
-        <ion-note><small>{{loc.Name}}</small></ion-note>
+      <ion-item detail-push (click)="editInfo(loc,0)">
+        <h2>Info</h2>
+        <ion-note><small>Click to edit name, address, and menu.</small></ion-note>
       </ion-item>
-      <ion-item (click)="editInfo(loc.Address,1)">
-        <h2>Address</h2>
-        <ion-note><small>{{loc.Address}}</small></ion-note>
+      <ion-item detail-push (click)="editInfo(loc,1)">
+        <h2>Description</h2>
+        <ion-note><small>Click to edit description</small></ion-note>
       </ion-item>
     </ion-list>
 </ion-content>

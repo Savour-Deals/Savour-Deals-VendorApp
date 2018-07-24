@@ -18,6 +18,7 @@ export class VendorPage {
   private ID: string;
   public location: Observable<any[]>;
   public loaded: boolean = false;
+
   constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider) {
     this.placeName = navParams.get('name');
     this.ID = navParams.get('ID');
@@ -32,7 +33,7 @@ export class VendorPage {
     let profileModal = this.modalCtrl.create(CreatedealPage, {
       ID: id,
       name: name
-    }, {enableBackdropDismiss : false});
+    }, { cssClass: "my-fullscreen", enableBackdropDismiss : false });
     profileModal.present();
   }
 
@@ -44,7 +45,7 @@ export class VendorPage {
   }
 
   editLocation(id: string){
-    let profileModal = this.modalCtrl.create(EditVendorPage, {loc: this.location}, {enableBackdropDismiss : false});
+    let profileModal = this.modalCtrl.create(EditVendorPage, {loc: this.location}, { cssClass: 'my-fullscreen',enableBackdropDismiss : false});
     profileModal.present();
   }
 

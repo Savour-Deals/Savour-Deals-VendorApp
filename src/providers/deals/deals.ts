@@ -10,6 +10,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class DealsProvider {
   constructor(public http: HttpClient, private af: AngularFireDatabase) {
+    
   }
 
   getDeals(){

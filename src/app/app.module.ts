@@ -32,8 +32,9 @@ import { ViewdealPage } from '../pages/viewdeal/viewdeal';
 import { DealsPageModule } from '../pages/deals/deals.module';
 import { CreatedealPageModule } from '../pages/createdeal/createdeal.module';
 import { EditVendorPageModule } from '../pages/edit-vendor/edit-vendor.module';
+import { AppDataProvider } from '../providers/app-data/app-data';
+import { ImgPopoverPage } from '../pages/img-popover/img-popover';
 import { EditItemPage } from '../pages/edit-item/edit-item';
-
 
 
 
@@ -46,6 +47,7 @@ import { EditItemPage } from '../pages/edit-item/edit-item';
     VendorPage,
     MainPage,
     ViewdealPage,
+    ImgPopoverPage,
     EditItemPage
    ],
   imports: [
@@ -70,6 +72,7 @@ import { EditItemPage } from '../pages/edit-item/edit-item';
     VendorPage,
     MainPage,
     ViewdealPage,
+    ImgPopoverPage,
     EditItemPage
   ],
   providers: [
@@ -78,7 +81,8 @@ import { EditItemPage } from '../pages/edit-item/edit-item';
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     VendorsProvider,
-    DealsProvider
+    DealsProvider,
+    AppDataProvider
   ]
 })
 export class AppModule {}

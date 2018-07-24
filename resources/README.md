@@ -6,3 +6,9 @@ Cordova reference documentation:
 
 - Icons: https://cordova.apache.org/docs/en/latest/config_ref/images.html
 - Splash Screens: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/
+TO BUILD FOR PWA:
+- npm run ionic:build
+- firebase deploy
+
+TO CREATE FIREBASE IN DIRECTORY
+- firebase init

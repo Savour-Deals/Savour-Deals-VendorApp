@@ -26,4 +26,8 @@ export class VendorsProvider {
     return this.af.list('Restaurants', ref => ref.orderByChild('placeID').equalTo(ID)).snapshotChanges();
   }
 
+  editVendorInfo(id,data){
+    this.af.object('Restaurants/'+id).update(data);
+  }
+
 }

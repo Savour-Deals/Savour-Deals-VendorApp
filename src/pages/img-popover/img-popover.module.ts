@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { EditItemPage } from './edit-item';
+import { ImgPopoverPage } from './img-popover';
 
 @NgModule({
   declarations: [
   ],
   imports: [
-    IonicPageModule.forChild(EditItemPage),
+    IonicPageModule.forChild(ImgPopoverPage),
   ],
 })
-export class EditNamePageModule {}
+export class ImgPopoverPageModule {}

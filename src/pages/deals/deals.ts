@@ -54,7 +54,7 @@ export class DealsPage {
     let dealModal = this.modalCtrl.create(CreatedealPage, {
       ID: this.ID,
       name: this.place
-    }, {enableBackdropDismiss : false});
+    }, { cssClass: "my-fullscreen", enableBackdropDismiss : false});
     dealModal.onDidDismiss(data => {
       if (data){
         const tempDeal = data;

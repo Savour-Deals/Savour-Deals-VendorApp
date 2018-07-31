@@ -5,5 +5,22 @@ page-main {
             margin-left: auto;
             margin-right: auto;
         }
+
+        .button {
+            display: block;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            height: 40px;
+            background: #49ABAA;
+            text-decoration: none;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
     }
 }

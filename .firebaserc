@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "savour-59557"
+    "default": "savour-59557",
+    "savourtest": "savour-59557",
+    "savourprod": "savour-deals"
   }
 }

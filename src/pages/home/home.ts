@@ -3,8 +3,6 @@ import { NavController, AlertController, LoadingController } from 'ionic-angular
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user';
-import { Platform } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
 
 import * as firebase from 'firebase';
 import { MainPage } from "../main/main";
@@ -18,7 +16,7 @@ export class HomePage {
   user = {} as User;
   loader: any;
 
-  constructor(private afauth: AngularFireAuth, private fb: Facebook, private platform: Platform, public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+  constructor(private afauth: AngularFireAuth, public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     this.loader = this.loadingCtrl.create({
 
     });
@@ -56,35 +54,21 @@ export class HomePage {
 
   signInWithFacebook() {
     this.presentLoading();
-    
-    if (this.platform.is('cordova') && !this.platform.is('core')) {
-      return this.fb.login(['email', 'public_profile']).then(res => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        firebase.auth().signInWithCredential(facebookCredential).then(success=>{
-          if (success){
-          }
-          this.loader.dismiss();
-        }).catch((error) => { 
-          console.log(error.code);
-          this.loader.dismiss();
-          let alert = this.alertCtrl.create({
-            title: 'Login Failed',
-            subTitle: 'Sorry, we could not log you in with Facebook. Please try again.',
-            buttons: ['Okay']
-          });
-          alert.present();
-        });
-      }).catch((error) => { 
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('public_profile');
+    firebase.auth().signInWithRedirect(provider);
+    firebase.auth().getRedirectResult().then(function(result) {
+      if (result.credential) {
+        // Success!!
+      }
+    }).catch(function(error) {
+      let alert = this.alertCtrl.create({
+        title: 'Login Failed',
+        subTitle: 'Sorry, we could not log you in with Facebook. Please try again.',
+        buttons: ['Okay']
       });
-    }else if (this.platform.is('core')){
-      this.afauth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
-    }else {
-      this.afauth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then((res) => {
-        });
-    }
-    this.loader.dismiss();
+      alert.present();
+    });
   }
 
   register() {

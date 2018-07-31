@@ -1,0 +1,6 @@
+{
+  "appId": "com.svrvendor.app",
+  "appName": "Savour Deals Vendors",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

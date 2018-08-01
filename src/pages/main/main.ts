@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { VendorPage } from '../vendor/vendor';
 import { VendorsProvider } from '../../providers/vendors/vendors';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Subscription } from '../../../node_modules/rxjs';
 
 
 @IonicPage()
@@ -19,11 +20,13 @@ export class MainPage {
   public user: any;
   public isVendor: boolean = true;
   public isLoaded: boolean = false;
+  private userSub: Subscription;
   constructor( private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
 
   }
 
   signout(){
+    this.af.database.goOffline();
     this.afauth.auth.signOut().then(val =>{
       this.navCtrl.setRoot(HomePage);
     }).catch(err => {//TODO: catch specific errors
@@ -32,8 +35,11 @@ export class MainPage {
   }
 
   ionViewDidLoad() {
-    this.af.object('Users/'+this.afauth.auth.currentUser.uid).snapshotChanges().subscribe( obj =>{
-          this.user = obj.payload.val();
+    this.userSub = this.af.object('Users/'+this.afauth.auth.currentUser.uid).snapshotChanges().subscribe( obj =>{
+      this.isVendor = false;
+      this.user = obj.payload.val();
+      if(this.user != null){
+        if (this.user.role != null){
           if (this.user.role == "admin"){
             this.isVendor = true;
             this.vendProv.getRestaurants().subscribe(locs=>{
@@ -71,10 +77,10 @@ export class MainPage {
                 });
               });
             }
-          }else{
-            this.isVendor = false;
           }
-      });
+        }
+      }
+    });
   }
 
   locationClicked(placeName, placeID){

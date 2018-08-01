@@ -19,7 +19,7 @@
 
 <ion-content padding>
   <div *ngIf='isCurrent == true' [hidden]="isVendor==false">
-    <div *ngIf="locations?.length<1" [hidden]="!isLoaded">
+    <div *ngIf="1 > locations?.length" [hidden]="!isLoaded">
       <h1>You have no locations!</h1>
     </div>
     <ion-list>

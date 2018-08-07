@@ -6,10 +6,59 @@
     </ion-item>
   </div>
   <div *ngIf="item===1">
-      <h3>Description</h3>
-      <ion-item class="desc">
-          <ion-textarea class="description" [(ngModel)]="values[0]" rows="15"></ion-textarea>
-      </ion-item>
+    <h3>Description</h3>
+    <ion-item class="desc">
+      <ion-textarea class="description" [(ngModel)]="values[0]" rows="15"></ion-textarea>
+    </ion-item>
+  </div>
+  <div *ngIf="item===2">
+    <h3>Loyalty Program</h3>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="loyaltyEnabled" ></ion-checkbox>
+      <ion-label>Use loyalty program</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>{{titles[0]}}</ion-label>
+        <ion-input type="input" [placeholder]="getValue(0)" [(ngModel)]="values[0]" [disabled]="!loyaltyEnabled"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>{{titles[1]}}</ion-label>
+        <ion-input type="input" [placeholder]="getValue(1)" [(ngModel)]="values[1]" [disabled]="!loyaltyEnabled"></ion-input>
+    </ion-item>
+    <br>
+    <ion-list>
+        <ion-label stacked>{{titles[2]}}</ion-label>
+        <div>
+          <ion-item>
+            <ion-label>Monday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Mon" [(ngModel)]="values[2].Mon" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label >Tuesday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Tues" [(ngModel)]="values[2].Tues" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label >Wednesday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Wed" [(ngModel)]="values[2].Wed" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label >Thursday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Thurs" [(ngModel)]="values[2].Thurs" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label >Friday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Fri" [(ngModel)]="values[2].Fri" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label >Saturday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Sat" [(ngModel)]="values[2].Sat" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label >Sunday</ion-label>
+            <ion-input type="number" [placeholder]="values[2].Sun" [(ngModel)]="values[2].Sun" [disabled]="!loyaltyEnabled"></ion-input>
+          </ion-item>
+        </div>
+    </ion-list>
   </div>
 </ion-content>
 <ion-footer>

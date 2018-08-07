@@ -12,7 +12,8 @@
     </ion-item>
     <ion-item>
         <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        <ion-input [type]="passwordType" [(ngModel)]="user.password"></ion-input>
+        <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
     </ion-item>
     <br>
     <br>
@@ -22,7 +23,7 @@
     <button ion-button color="primary" (click)="register()">Register</button>
     <br>
     <br>
-    <button ion-button color="facebook" (click)="signInWithFacebook()">Login with Facebook</button>
+    <button ion-button color="facebook" (click)="signInWithFacebook()">Continue with Facebook</button>
 
-    <p align="center"><small>Version 1.0.6</small></p>
+    <p align="center"><small>Version 1.0.8</small></p>
 </ion-content>

@@ -1,15 +1,46 @@
 <ion-header>
-    <ion-navbar color="primary">
-      <ion-title>Register</ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+</ion-header>
 
 
 <ion-content padding center no-bounce>
-  <h1>Contact us: </h1>
-  <a href="https://www.savourdeals.com/contact/">Contact</a>
-  <br>
-  <br>
-  <h1>Sign-up:</h1>
-  <a href="https://www.savourdeals.com/signup/#Sign-Up">Sign Up</a>
+  
+  <ion-list no-lines>
+  
+    <form [formGroup]="SignupForm">
+
+        <ion-item>
+            <ion-label floating>Company Name</ion-label>
+            <ion-input formControlName="name" [class.invalid]="!SignupForm.controls.name.valid  && (SignupForm.controls.name.dirty)" [class.valid]="SignupForm.controls.name.valid" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!SignupForm.controls.name.valid  && (SignupForm.controls.name.dirty)">
+          <p>Please enter a valid company name.</p>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input formControlName="email" [class.invalid]="!SignupForm.controls.email.valid  && (SignupForm.controls.email.dirty)" [class.valid]="SignupForm.controls.email.valid" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!SignupForm.controls.email.valid  && (SignupForm.controls.email.dirty)">
+          <p>Please enter a valid email.</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input formControlName="password" [class.invalid]="!SignupForm.controls.password.valid  && (SignupForm.controls.password.dirty)" [class.valid]="SignupForm.controls.password.valid" [type]="passwordType" clearOnEdit="false"></ion-input>
+            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <ion-item *ngIf="!SignupForm.controls.password.valid  && SignupForm.controls.password.dirty">
+          <p>Password must be at least 6 characters.</p>
+        </ion-item>
+
+
+    </form>
+
+  </ion-list>
+  <button ion-button full color="primary" (click)="signup()">Sign Up</button>
+
 </ion-content>

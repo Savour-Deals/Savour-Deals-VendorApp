@@ -15,8 +15,16 @@
 
 
 <ion-content padding>
-  <!-- Coming Soon! -->
     <ion-list *ngFor="let loc of (obs | async)">
+        <div class="container" (click)="file.click()">
+          <img-loader height="200px" class="dealimg" src="{{loc.Photo}}" useImg>         
+            <div class="centered">
+              <h3>Click to edit</h3>
+            </div>
+          </img-loader>
+        </div>
+      <br>
+      <input  type="file" (change)="upload($event)" accept="image/*" hidden="true" #file/>
       <ion-item detail-push (click)="editInfo(loc,0)">
         <h2>Info</h2>
         <ion-note><small>Click to edit name, address, and menu.</small></ion-note>
@@ -24,6 +32,10 @@
       <ion-item detail-push (click)="editInfo(loc,1)">
         <h2>Description</h2>
         <ion-note><small>Click to edit description</small></ion-note>
+      </ion-item>
+      <ion-item detail-push (click)="editInfo(loc,2)">
+        <h2>Loyalty</h2>
+        <ion-note><small>Click to edit your loyalty program</small></ion-note>
       </ion-item>
     </ion-list>
 </ion-content>

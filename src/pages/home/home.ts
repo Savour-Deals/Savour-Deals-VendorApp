@@ -16,6 +16,9 @@ export class HomePage {
 
   user = {} as User;
   loader: any;
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
+  
 
   constructor(private afauth: AngularFireAuth, public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public af: AngularFireDatabase) {
     this.loader = this.loadingCtrl.create({
@@ -25,7 +28,12 @@ export class HomePage {
     this.afauth.authState.subscribe(res => {
       if (res && res.uid) {
         const userRef = this.af.object('Users/'+res.uid);
-        userRef.update({  "FullName":res.displayName, "Email":res.email})
+        if (res.displayName){
+          userRef.update({"FullName":res.displayName})
+        }
+        if (res.email){
+          userRef.update({"Email":res.email})
+        }
 
         this.loader.dismiss();
         console.log('user is logged in');
@@ -94,5 +102,10 @@ export class HomePage {
       content: "Logging In...",
     });
     this.loader.present();
+  }
+
+  hideShowPassword() {
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
   }
 }

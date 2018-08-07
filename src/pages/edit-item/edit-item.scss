@@ -16,4 +16,12 @@ page-edit-item {
         border-color: black;
         border-radius: 0;
     }
+    .item-inner{
+        border-bottom-color: gray !important;
+        box-shadow: none !important;
+    }
+    ion-item {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+    }
 }

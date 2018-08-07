@@ -20,7 +20,14 @@ export class MainPage {
   public user: any;
   public isVendor: boolean = true;
   public isLoaded: boolean = false;
-  private userSub: Subscription;
+  private _userSub: Subscription;
+  public get userSub(): Subscription {
+    return this._userSub;
+  }
+
+  public set userSub(value: Subscription) {
+    this._userSub = value;
+  }
   constructor( private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
 
   }

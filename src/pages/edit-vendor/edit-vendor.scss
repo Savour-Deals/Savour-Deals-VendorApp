@@ -1,3 +1,21 @@
 page-edit-vendor {
-
+    img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        opacity: 0.4;
+        filter: alpha(opacity=40); /* For IE8 and earlier */
+    }
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+        background-color: black;
+    }
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }

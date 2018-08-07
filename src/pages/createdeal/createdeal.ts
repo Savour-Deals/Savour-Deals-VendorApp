@@ -261,7 +261,7 @@ export class CreatedealPage {
         deals.push(i*5 + "% Off");
       }
     }else if (type=="dollarOf"){
-      for (let i = 2;i<=100;i++){
+      for (let i = 2;i<=15;i++){
         deals.push("$" + i);
       }
     }else{

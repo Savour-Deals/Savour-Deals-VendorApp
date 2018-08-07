@@ -55,21 +55,58 @@ export class EditVendorPage {
   }
 
   editInfo(loc: any, item: number){
-    if (item == 0){
-      let popover = this.modalCtrl.create(EditItemPage, {
-        item: item,
-        location: loc
-      }, { cssClass: 'my-modal-inner my-stretch'});
-      popover.present({
-      });
-    }else if (item == 1){
-      let popover = this.modalCtrl.create(EditItemPage, {
-        item: item,
-        location: loc
-      }, { cssClass: 'my-modal-inner my-stretch'});
-      popover.present({
-      });
-    }
+    let popover = this.modalCtrl.create(EditItemPage, {
+      item: item,
+      location: loc
+    }, { cssClass: 'my-modal-inner my-stretch'});
+    popover.present({
+    });
+  }
+  upload(event) {
+    // var fileUpload = event.target;
+    // if (fileUpload.files.length > 0){
+    //   var reader = new FileReader();
+    //   //Read the contents of Image File.
+    //   reader.readAsDataURL(fileUpload.files[0]);
+    //   var tempThis = this;//wtf why??!!
+    //   reader.onload = function (e) {
+    //     //Initiate the JavaScript Image object.
+    //     var image = new Image();
+    //     let target: any = e.target; //<-- This (any) will tell compiler to shut up!
+
+    //     //Set the Base64 string return from FileReader as source.
+    //     image.src = target.result;
+        
+    //     //Validate the File Height and Width.
+    //     image.onload = function () {
+    //       var height = image.height;
+    //       var width = image.width;
+    //       if (height < 500 || width < 500) {
+    //           alert("Please select a higher resolution photo or use one of our preselected options.");
+    //           return false;
+    //       }else{
+    //         let loading = tempThis.loadingCtrl.create({
+    //           content: 'Uploading image. This may take a minute, please wait...'
+    //         });
+    //         loading.present();
+    //         tempThis.loaded = false;
+    //         tempThis.startedUpload = true;
+    //         tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.rID+'/'+randomId);
+    //         const task = tempThis.ref.put(fileUpload.files[0]);
+    //         task.snapshotChanges().pipe(
+    //           finalize(() => {
+    //             // tempThis.downloadURL = tempThis.ref.getDownloadURL()
+    //             tempThis.ref.getDownloadURL().subscribe(url => {
+    //               tempThis.newDeal.photo = url;
+    //               tempThis.downloadURL = url;
+    //               loading.dismiss();          
+    //             });
+    //           })
+    //         ).subscribe()
+    //       }
+    //     };
+    //   }
+    // }
   }
 
 }

@@ -22,7 +22,7 @@ export class VendorPage {
   constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider) {
     this.placeName = navParams.get('name');
     this.ID = navParams.get('ID');
-    this.location = this.vendProv.getRestaurantByPlaceID(this.ID).pipe(
+    this.location = this.vendProv.getVendorsByID(this.ID).pipe(
       map(changes => 
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )

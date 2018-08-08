@@ -13,21 +13,25 @@ export class VendorsProvider {
   constructor(public http: HttpClient, private af: AngularFireDatabase) {
   }
 
-  getRestaurants(){
-    return this.af.list('Restaurants').snapshotChanges();
+  getVendors(){
+    return this.af.list('Vendors').snapshotChanges();
   }
 
-  getRestaurantsByID(ID: string){
+  getVendorsByID(ID: string){
     console.log(ID);
-    return this.af.list('Restaurants', ref => ref.orderByKey().equalTo(ID)).snapshotChanges();
+    return this.af.list('Vendors', ref => ref.orderByKey().equalTo(ID)).snapshotChanges();
   }
-  getRestaurantByPlaceID(ID: string){
+  getVendorsByPlaceID(ID: string){
     console.log(ID);
-    return this.af.list('Restaurants', ref => ref.orderByChild('placeID').equalTo(ID)).snapshotChanges();
+    return this.af.list('Vendors', ref => ref.orderByChild('placeID').equalTo(ID)).snapshotChanges();
   }
 
   editVendorInfo(id,data){
-    this.af.object('Restaurants/'+id).update(data);
+    return this.af.object('Vendors/'+id).update(data);
+  }
+
+  removeVendorInfo(id,key){
+    return this.af.object('Vendors/'+id+'/'+key).remove()
   }
 
 }

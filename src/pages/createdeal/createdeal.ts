@@ -305,7 +305,7 @@ export class CreatedealPage {
             loading.present();
             tempThis.loaded = false;
             tempThis.startedUpload = true;
-            tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.rID+'/'+randomId);
+            tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.rID+'/dealPhotos/'+randomId);
             const task = tempThis.ref.put(fileUpload.files[0]);
             task.snapshotChanges().pipe(
               finalize(() => {

@@ -23,7 +23,7 @@
       <h1>You have no locations!</h1>
     </div>
     <ion-list>
-      <button ion-item *ngFor="let location of locations" (click)="locationClicked(location.Name, location.placeID)">
+      <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.Name, keys[i])">
         <ion-avatar item-start>
           <img-loader src="{{location.Photo}}" useImg></img-loader>
         </ion-avatar>

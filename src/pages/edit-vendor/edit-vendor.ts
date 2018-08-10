@@ -85,7 +85,7 @@ export class EditVendorPage {
         image.onload = function () {
           var height = image.height;
           var width = image.width;
-          if (height < 500 || width < 500) {
+          if (height < 300 || width < 300) {
               alert("Please select a higher resolution photo.");
               return false;
           }else{

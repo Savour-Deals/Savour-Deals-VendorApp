@@ -35,12 +35,12 @@ export class EditItemPage {
       this.values = [this.location.Desc || ''];
     }else if (this.item == 2){
       this.loyaltyEnabled = false;
-      this.titles = ["Loyalty QRCode", "Deal", "Daily points"];
-      if (this.location.loyalty){
+      this.titles = ["Deal", "Daily points"];
+      if (this.location.Loyalty.loyaltyDeal){
         this.loyaltyEnabled = true
-        this.values = [this.location.loyalty.loyaltyCode, this.location.loyalty.loyaltyDeal,this.location.loyalty.loyaltyPoints];
+        this.values = [this.location.Loyalty.loyaltyDeal,this.location.Loyalty.loyaltyPoints];
       }else{
-        this.values = ['', '',{
+        this.values = ['',{
           "Fri" : 10,
           "Mon" : 10,
           "Sat" : 10,
@@ -76,22 +76,22 @@ export class EditItemPage {
     }else if (this.item == 2){
       if (this.loyaltyEnabled && dataIsValid){
         //update loyalty information using provider
-        data = {"loyalty":{
-            "loyaltyCode" : this.values[0],
-            "loyaltyCount" : 100,
-            "loyaltyDeal" : this.values[1].toLowerCase(),
-            "loyaltyPoints" : {
-              "Fri" : this.values[2].Fri,
-              "Mon" : this.values[2].Mon,
-              "Sat" : this.values[2].Sat,
-              "Sun" : this.values[2].Sun,
-              "Thurs" : this.values[2].Thurs,
-              "Tues" : this.values[2].Tues,
-              "Wed" : this.values[2].Wed
-            }
+        data = {
+          "loyaltyCount" : 100,
+          "loyaltyDeal" : this.values[0].toLowerCase(),
+          "loyaltyPoints" : {
+            //*1 to convert from string to number when sending to firebase
+            //Dont know why form type number goes to Firebase as string
+            "Fri" : this.values[1].Fri*1,
+            "Mon" : this.values[1].Mon*1,
+            "Sat" : this.values[1].Sat*1,
+            "Sun" : this.values[1].Sun*1,
+            "Thurs" : this.values[1].Thurs*1,
+            "Tues" : this.values[1].Tues*1,
+            "Wed" : this.values[1].Wed*1
           }
         }
-        this.vendProv.editVendorInfo(this.location.key, data).then(_ => {
+        this.vendProv.editVendorInfo(this.location.key + "/Loyalty", data).then(_ => {
           console.log('success');
           this.close();
         }).catch(err => {
@@ -99,7 +99,7 @@ export class EditItemPage {
         });
       }else if (!this.loyaltyEnabled){
         //We only care to scare the user if they have a loyalty deal running
-        if (this.location.loyalty){
+        if (this.location.Loyalty.loyaltyDeal){
           //Make sure user knows what they are doing
           let alert = this.alertCtrl.create({
             title: 'Are you sure?',
@@ -112,7 +112,9 @@ export class EditItemPage {
                 handler: () => {
                   //Remove loyalty program... currently if re-enabled, users keep their point totals
                   data = null;
-                  this.vendProv.removeVendorInfo(this.location.key, "loyalty");
+                  this.vendProv.removeVendorInfo(this.location.key, "Loyalty/loyaltyCount");
+                  this.vendProv.removeVendorInfo(this.location.key, "Loyalty/loyaltyDeal");
+                  this.vendProv.removeVendorInfo(this.location.key, "Loyalty/loyaltyPoints");
                   this.close();
                 }
               }
@@ -146,12 +148,12 @@ export class EditItemPage {
       return true;
     }else if (item == 2){
       //Validate Loyalty
-      if (values[0] == "" || values[1] == ""){
+      if (values[0] == ""){
         return false;
       }
       //Check point values between 1 and 100
       var pointsError = false;
-      var points = Object.keys(values[2]).map(key => values[2][key]);
+      var points = Object.keys(values[1]).map(key => values[1][key]);
       points.forEach(point => {
         if (point > 100 || point < 1){
           pointsError = true;

@@ -9,10 +9,10 @@
 
 <ion-content padding>
   <div *ngFor="let item of (deal | async)" >
-    <h1>{{item.rName}}</h1>
+    <h1>{{item.vendor_name}}</h1>
     <img-loader class="dealimg" src="{{item.photo}}" useImg></img-loader>
     <br>
-    <h3>{{item.dealDesc}}</h3>
+    <h3>{{item.deal_description}}</h3>
     <ion-grid>
       <ion-row>
         <ion-col *ngIf="item.active_days.sun==true" class="active-day">Sun</ion-col><ion-col *ngIf="item.active_days.sun==false" class="inactive-day">Sun</ion-col>

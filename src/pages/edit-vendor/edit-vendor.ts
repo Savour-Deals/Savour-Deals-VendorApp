@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ModalController, ViewController, LoadingController } from 'ionic-angular/umd';
+import { NavParams, ModalController, ViewController, LoadingController } from 'ionic-angular';
 import { VendorModel } from '../../models/vendor';
 import { Observable } from 'rxjs';
 import { EditItemPage } from '../edit-item/edit-item';

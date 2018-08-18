@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ViewController, NavParams, Slides,Navbar, AlertController, Platform, LoadingController, ModalController  } from 'ionic-angular/umd';
+import { IonicPage, ViewController, NavParams, Slides,Navbar, AlertController, Platform, LoadingController, ModalController  } from 'ionic-angular';
 import * as moment from 'moment';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { DealsProvider } from '../../providers/deals/deals';

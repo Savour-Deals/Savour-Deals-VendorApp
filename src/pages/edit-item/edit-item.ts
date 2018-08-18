@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular/umd';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { VendorsProvider } from '../../providers/vendors/vendors';
 
 /**

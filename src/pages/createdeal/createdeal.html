@@ -75,14 +75,14 @@
                 {{ item }}
               </ion-option>
             </ion-select>
-            <p align="center">Off</p>
+            <!-- <p align="center">Off</p>
             <ion-select [(ngModel)]="discountOf" okText="Okay" cancelText="Dismiss" placeholder="Select minimum">
               <ion-option value="">Select minimum</ion-option>
               <ion-option *ngFor="let item of getDiscounts('dollarOf')" value="{{item}}">
                 {{ item }}
               </ion-option>
             </ion-select>
-            <p align="center">To not set a minimum price, leave second option blank.</p>
+            <p align="center">To not set a minimum price, leave second option blank.</p> -->
         </div>
         <h2 *ngIf="discountType == 'BOGO'"> Buy One Get One</h2>
    </ion-slide>
@@ -133,33 +133,33 @@
             <ion-col></ion-col>
           </ion-row>
         </ion-grid>
-        <ion-checkbox [(ngModel)]="dealDays.Mon" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Mon==true" class="active-day" (click)="dealDays.Mon=false;"><span>Monday</span></ion-label>
-          <ion-label *ngIf="dealDays.Mon==false" class="inactive-day" (click)="dealDays.Mon=true;"><span>Monday</span></ion-label>
+          <ion-checkbox [(ngModel)]="dealDays.mon" hidden="true"></ion-checkbox>
+          <ion-label *ngIf="dealDays.mon==true" class="active-day" (click)="dealDays.mon=false;"><span>Monday</span></ion-label>
+          <ion-label *ngIf="dealDays.mon==false" class="inactive-day" (click)="dealDays.mon=true;"><span>Monday</span></ion-label>
  
-          <ion-checkbox [(ngModel)]="dealDays.Tues" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Tues==true" class="active-day" (click)="dealDays.Tues=false;"><span>Tuesday</span></ion-label>
-          <ion-label *ngIf="dealDays.Tues==false" class="inactive-day" (click)="dealDays.Tues=true;"><span>Tuesday</span></ion-label>
+          <ion-checkbox [(ngModel)]="dealDays.tues" hidden="true"></ion-checkbox>
+          <ion-label *ngIf="dealDays.tues==true" class="active-day" (click)="dealDays.tues=false;"><span>Tuesday</span></ion-label>
+          <ion-label *ngIf="dealDays.tues==false" class="inactive-day" (click)="dealDays.tues=true;"><span>Tuesday</span></ion-label>
           
           <ion-checkbox [(ngModel)]="dealDays.Wed" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Wed==true" class="active-day" (click)="dealDays.Wed=false;"><span>Wednesday</span></ion-label>
-          <ion-label *ngIf="dealDays.Wed==false" class="inactive-day" (click)="dealDays.Wed=true;"><span>Wednesday</span></ion-label>
+          <ion-label *ngIf="dealDays.wed==true" class="active-day" (click)="dealDays.wed=false;"><span>Wednesday</span></ion-label>
+          <ion-label *ngIf="dealDays.wed==false" class="inactive-day" (click)="dealDays.wed=true;"><span>Wednesday</span></ion-label>
    
           <ion-checkbox [(ngModel)]="dealDays.Thurs" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Thurs==true" class="active-day" (click)="dealDays.Thurs=false;"><span>Thursday</span></ion-label>
-          <ion-label *ngIf="dealDays.Thurs==false" class="inactive-day" (click)="dealDays.Thurs=true;"><span>Thursday</span></ion-label>
+          <ion-label *ngIf="dealDays.thur==true" class="active-day" (click)="dealDays.thur=false;"><span>Thursday</span></ion-label>
+          <ion-label *ngIf="dealDays.thur==false" class="inactive-day" (click)="dealDays.thur=true;"><span>Thursday</span></ion-label>
  
-          <ion-checkbox [(ngModel)]="dealDays.Fri" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Fri==true" class="active-day" (click)="dealDays.Fri=false;"><span>Friday</span></ion-label>
-          <ion-label *ngIf="dealDays.Fri==false" class="inactive-day" (click)="dealDays.Fri=true;"><span>Friday</span></ion-label>     
+          <ion-checkbox [(ngModel)]="dealDays.fri" hidden="true"></ion-checkbox>
+          <ion-label *ngIf="dealDays.fir==true" class="active-day" (click)="dealDays.fri=false;"><span>Friday</span></ion-label>
+          <ion-label *ngIf="dealDays.fri==false" class="inactive-day" (click)="dealDays.fri=true;"><span>Friday</span></ion-label>     
 
-          <ion-checkbox [(ngModel)]="dealDays.Sat" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Sat==true" class="active-day" (click)="dealDays.Sat=false;"><span>Saturday</span></ion-label>
-          <ion-label *ngIf="dealDays.Sat==false" class="inactive-day" (click)="dealDays.Sat=true;"><span>Saturday</span></ion-label> 
+          <ion-checkbox [(ngModel)]="dealDays.sat" hidden="true"></ion-checkbox>
+          <ion-label *ngIf="dealDays.sat==true" class="active-day" (click)="dealDays.sat=false;"><span>Saturday</span></ion-label>
+          <ion-label *ngIf="dealDays.sat==false" class="inactive-day" (click)="dealDays.sat=true;"><span>Saturday</span></ion-label> 
 
-          <ion-checkbox [(ngModel)]="dealDays.Sun" hidden="true"></ion-checkbox>
-          <ion-label *ngIf="dealDays.Sun==true" class="active-day" (click)="dealDays.Sun=false;"><span>Sunday</span></ion-label>
-          <ion-label *ngIf="dealDays.Sun==false" class="inactive-day" (click)="dealDays.Sun=true;"><span>Sunday</span></ion-label>  
+          <ion-checkbox [(ngModel)]="dealDays.sun" hidden="true"></ion-checkbox>
+          <ion-label *ngIf="dealDays.sun==true" class="active-day" (click)="dealDays.sun=false;"><span>Sunday</span></ion-label>
+          <ion-label *ngIf="dealDays.sun==false" class="inactive-day" (click)="dealDays.sun=true;"><span>Sunday</span></ion-label>  
       </div>
     </ion-slide>
 

@@ -177,24 +177,24 @@
     
     <ion-slide>
         <h3>Is everything correct?</h3>
-        <h4>{{newDeal.rName}}</h4>
+        <h4>{{newDeal.vendor_name}}</h4>
         <div class="placeholder" [hidden]="loaded">
           <ion-spinner *ngIf="startedUpload" class="custom-spinner"></ion-spinner>
         </div>
         <img class="dealimg" *ngIf="downloadURL; let url" [src]="url" alt="Image from AngularFireStorage" (load)="loaded = true">
-        <ion-item><h3>{{newDeal.dealDesc}}</h3></ion-item>
+        <ion-item><h3>{{newDeal.deal_description}}</h3></ion-item>
         <ion-item>Start: {{dispStart}}</ion-item>
         <ion-item>End: {{dispEnd}}</ion-item>
         <ion-item>
           <h5>Active Days</h5>
           <ul>
-            <li *ngIf="dealDays.Mon">Monday</li>
-            <li *ngIf="dealDays.Tues">Tuesday</li>
-            <li *ngIf="dealDays.Wed">Wednesday</li>
-            <li *ngIf="dealDays.Thurs">Thursday</li>
-            <li *ngIf="dealDays.Fri">Friday</li>
-            <li *ngIf="dealDays.Sat">Saturday</li>
-            <li *ngIf="dealDays.Sun">Sunday</li>
+            <li *ngIf="dealDays.mon">Monday</li>
+            <li *ngIf="dealDays.tues">Tuesday</li>
+            <li *ngIf="dealDays.wed">Wednesday</li>
+            <li *ngIf="dealDays.thur">Thursday</li>
+            <li *ngIf="dealDays.fri">Friday</li>
+            <li *ngIf="dealDays.sat">Saturday</li>
+            <li *ngIf="dealDays.sun">Sunday</li>
           </ul>
         </ion-item>
     </ion-slide>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ViewController, NavParams, Slides,Navbar, AlertController, Platform, LoadingController, ModalController  } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams, Slides,Navbar, AlertController, Platform, LoadingController, ModalController  } from 'ionic-angular/umd';
 import * as moment from 'moment';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { DealsProvider } from '../../providers/deals/deals';
@@ -16,13 +16,14 @@ const randomId = Math.random().toString(36).substring(2);
   templateUrl: 'createdeal.html',
 })
 export class CreatedealPage {
-  newDeal = { StartTime: 0,
-    EndTime: 0,
-    rID: '',
+  newDeal = { 
+    start_time: 0,
+    end_time: 0,
+    vendor_id: '',
     photo: '',
-    rName: '',
-    dealDesc: '',
-    activeDays: { Mon: false, Tues: false, Wed: false, Thurs: false, Fri: false, Sat: false, Sun : false }
+    vendor_name: '',
+    deal_description: '',
+    active_days: { mon: false, tues: false, wed: false, thur: false, fri: false, sat: false, sun : false }
   };
 
   loaded: boolean = false;
@@ -57,14 +58,14 @@ export class CreatedealPage {
   dealStart: number;
   dealEnd: number;
   dealDays: {
-    Mon:boolean,
-    Tues:boolean,
-    Wed:boolean,
-    Thurs:boolean,
-    Fri:boolean,
-    Sat:boolean,
-    Sun:boolean
-  } = { Mon:true, Tues:true, Wed:true, Thurs:true, Fri:true, Sat:true, Sun:true}
+    mon:boolean,
+    tues:boolean,
+    wed:boolean,
+    thur:boolean,
+    fri:boolean,
+    sat:boolean,
+    sun:boolean
+  } = { mon:true, tues:true, wed:true, thur:true, fri:true, sat:true, sun:true}
 
   imgArr: any[];
    
@@ -79,8 +80,8 @@ export class CreatedealPage {
   constructor(public loadingCtrl: LoadingController,public modalCtrl: ModalController,private afStorage: AngularFireStorage,public platform: Platform, public viewCtrl: ViewController, public navParams: NavParams, public alertCtrl: AlertController, public dealProv: DealsProvider, public appData: AppDataProvider) {
     this.discountType = "percent";
     this.dealType = "Entree";
-    this.newDeal.rID = this.navParams.get("ID");
-    this.newDeal.rName = this.navParams.get("name");
+    this.newDeal.vendor_id = this.navParams.get("ID");
+    this.newDeal.vendor_name = this.navParams.get("name");
     if (this.platform.is('mobile')) {
       this.mobile = true;
     }if (platform.is('core')) {
@@ -201,33 +202,33 @@ export class CreatedealPage {
       this.atEnd = true;
       this.atFront = false;
       if (!this.allDay){
-        this.newDeal.StartTime = moment(this.startDate + "T" + this.startTime).unix();
-        this.newDeal.EndTime = moment(this.endDate + "T" + this.endTime).unix();
+        this.newDeal.start_time = moment(this.startDate + "T" + this.startTime).unix();
+        this.newDeal.end_time = moment(this.endDate + "T" + this.endTime).unix();
         this.dispStart = moment(this.startDate + "T" + this.startTime).format('LLLL');
         this.dispEnd = moment(this.endDate + "T" + this.endTime).format('LLLL');
       }else{
-        this.newDeal.StartTime = moment(this.startDate).unix();
-        this.newDeal.EndTime = moment(this.endDate).unix();
+        this.newDeal.start_time = moment(this.startDate).unix();
+        this.newDeal.end_time = moment(this.endDate).unix();
         this.dispStart = moment(this.startDate).format('LL');
         this.dispEnd = moment(this.endDate).format('LL')
       }
     //Create deal string
       if(this.discountType == "BOGO"){
-        this.newDeal.dealDesc = "Buy One Get One " + this.dealType;
+        this.newDeal.deal_description = "Buy One Get One " + this.dealType;
       }else if (this.discountOf && this.discountOf!=""){
         if (this.dealType == "Entire Order"){
-          this.newDeal.dealDesc = this.discount + " a " + this.discountOf + " Order";
+          this.newDeal.deal_description = this.discount + " a " + this.discountOf + " Order";
         }else{
-          this.newDeal.dealDesc = this.discount + " a " + this.discountOf + " " + this.dealType;
+          this.newDeal.deal_description = this.discount + " a " + this.discountOf + " " + this.dealType;
         }
       }else{
         if (this.dealType == "Entire Order"){
-          this.newDeal.dealDesc = this.discount + " " + this.dealType;
+          this.newDeal.deal_description = this.discount + " " + this.dealType;
         }else{
-          this.newDeal.dealDesc = this.discount + " One " + this.dealType;
+          this.newDeal.deal_description = this.discount + " One " + this.dealType;
         }
       }
-      this.newDeal.activeDays = this.dealDays;
+      this.newDeal.active_days = this.dealDays;
     }else{
       this.atEnd = false;
       this.atFront = false;
@@ -305,7 +306,7 @@ export class CreatedealPage {
             loading.present();
             tempThis.loaded = false;
             tempThis.startedUpload = true;
-            tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.rID+'/dealPhotos/'+randomId);
+            tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.vendor_id+'/dealPhotos/'+randomId);
             const task = tempThis.ref.put(fileUpload.files[0]);
             task.snapshotChanges().pipe(
               finalize(() => {

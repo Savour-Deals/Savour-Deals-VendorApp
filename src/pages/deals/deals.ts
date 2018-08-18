@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular/umd';
 import { DealsProvider } from '../../providers/deals/deals';
 
 import { ViewdealPage } from '../viewdeal/viewdeal';
@@ -34,10 +34,10 @@ export class DealsPage {
       const startOfToday = moment().startOf('day').unix();
       deals.forEach(dealSnap => {
         const tempDeal = new DealModel(dealSnap);
-        if (tempDeal.StartTime > now){    //if now is before start time: Upcoming
+        if (tempDeal.start_time > now){    //if now is before start time: Upcoming
           this.hasGroupNum[1] = true;
           this.upcomingDeals.push(tempDeal);
-        }else if (tempDeal.EndTime < now && tempDeal.EndTime!=startOfToday){ //if now is after end time: expired
+        }else if (tempDeal.end_time < now && tempDeal.end_time!=startOfToday){ //if now is after end time: expired
           this.hasGroupNum[2] = true;
           this.expiredDeals.push(tempDeal);
         }else{ //if neither of those, deal should be active
@@ -60,10 +60,10 @@ export class DealsPage {
         const tempDeal = data;
         const now = moment().unix();
         const startOfToday = moment().startOf('day').unix();
-        if (tempDeal.StartTime > now){    //if now is before start time: Upcoming
+        if (tempDeal.start_time > now){    //if now is before start time: Upcoming
           this.hasGroupNum[1] = true;
           this.upcomingDeals.push(tempDeal);
-        }else if (tempDeal.EndTime < now && tempDeal.EndTime!=startOfToday){ //if now is after end time: expired
+        }else if (tempDeal.end_time < now && tempDeal.end_time!=startOfToday){ //if now is after end time: expired
           this.hasGroupNum[2] = true;
           this.expiredDeals.push(tempDeal);
         }else{ //if neither of those, deal should be active

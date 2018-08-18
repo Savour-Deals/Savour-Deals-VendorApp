@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular/umd';
 import { Observable } from 'rxjs';
 import { DealsProvider } from '../../providers/deals/deals';
 import { map } from 'rxjs/operators';

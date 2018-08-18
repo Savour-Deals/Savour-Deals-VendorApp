@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular/umd';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -30,10 +30,10 @@ export class RegisterPage {
       if (res && res.uid) {
         const userRef = this.af.object('Users/'+res.uid);
         if (res.displayName){
-          userRef.update({"FullName":res.displayName})
+          userRef.update({"full_name":res.displayName})
         }
         if (res.email){
-          userRef.update({"Email":res.email})
+          userRef.update({"email":res.email})
         }
         this.loader.dismiss();
         console.log('user is logged in');
@@ -54,7 +54,7 @@ export class RegisterPage {
     if (this.SignupForm.valid){
       this.afauth.auth.createUserWithEmailAndPassword(this.SignupForm.value.email, this.SignupForm.value.password).then( authData => {
         const userRef = this.af.object('Users/'+authData.user.uid);
-        userRef.update({"Email":this.SignupForm.value.email,"FullName":this.SignupForm.value.name});
+        userRef.update({"email":this.SignupForm.value.email,"full_name":this.SignupForm.value.name});
       }, error => {
         this.loader.dismiss().then( () => {
           let alert = this.alertCtrl.create({

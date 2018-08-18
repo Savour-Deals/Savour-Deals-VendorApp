@@ -7,7 +7,7 @@
 
 <ion-content padding >
   <div *ngFor="let loc of location | async">
-    <img-loader width="100%" height="200px" class="dealimg" src="{{loc.Photo}}" useImg></img-loader>
+    <img-loader width="100%" height="200px" class="dealimg" src="{{loc.photo}}" useImg></img-loader>
     <br>
     <h1>{{loc.Name}}</h1>
     <ion-grid>
@@ -20,8 +20,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <button ion-button class="center" color="primary" class="create_button" (click)="createDealClicked(loc.key,loc.Name)">Create New Deal</button>
-    <button ion-button class="center" color="primary" class="create_button" (click)="showMenu(loc.Menu)">Menu</button>
+    <button ion-button class="center" color="primary" class="create_button" (click)="createDealClicked(loc.key,loc.name)">Create New Deal</button>
+    <button ion-button class="center" color="primary" class="create_button" (click)="showMenu(loc.menu)">Menu</button>
     <h3>About</h3>
     <p>{{loc.Address}}</p>
     <div class="angular-with-newlines">

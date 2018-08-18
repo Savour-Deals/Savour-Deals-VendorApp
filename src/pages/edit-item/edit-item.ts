@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular/umd';
 import { VendorsProvider } from '../../providers/vendors/vendors';
 
 /**
@@ -29,25 +29,25 @@ export class EditItemPage {
     this.item = navParams.get('item');
     if (this.item == 0){
       this.titles = ['Name', 'Address', 'Menu URL'];
-      this.values = [this.location.Name || '',this.location.Address || '',this.location.Menu || ''];
+      this.values = [this.location.name || '',this.location.address || '',this.location.menu || ''];
     }else if (this.item == 1){
       this.titles = ["Description"];
-      this.values = [this.location.Desc || ''];
+      this.values = [this.location.description || ''];
     }else if (this.item == 2){
       this.loyaltyEnabled = false;
       this.titles = ["Deal", "Daily points"];
-      if (this.location.Loyalty.loyaltyDeal){
+      if (this.location.loyalty.loyalty_deal){
         this.loyaltyEnabled = true
-        this.values = [this.location.Loyalty.loyaltyDeal,this.location.Loyalty.loyaltyPoints];
+        this.values = [this.location.loyalty.loyalty_deal,this.location.loyalty.loyalty_points];
       }else{
         this.values = ['',{
-          "Fri" : 10,
-          "Mon" : 10,
-          "Sat" : 10,
-          "Sun" : 10,
-          "Thurs" : 10,
-          "Tues" : 10,
-          "Wed" : 10
+          "fri" : 10,
+          "mon" : 10,
+          "sat" : 10,
+          "sun" : 10,
+          "thur" : 10,
+          "tues" : 10,
+          "wed" : 10
         }];
       }
     }
@@ -66,32 +66,32 @@ export class EditItemPage {
     var data = {};
     const dataIsValid = this.validateValues(this.values, this.item);
     if (this.item == 0 && dataIsValid){
-      data = {'Name': this.values[0], 'Address': this.values[1], 'Menu': this.values[2]};
+      data = {'name': this.values[0], 'address': this.values[1], 'menu': this.values[2]};
       this.vendProv.editVendorInfo(this.location.key, data);
       this.close();
     }else if (this.item == 1 && dataIsValid){
-      data = {"Desc": this.values[0]};
+      data = {"description": this.values[0]};
       this.vendProv.editVendorInfo(this.location.key, data);
       this.close();
     }else if (this.item == 2){
       if (this.loyaltyEnabled && dataIsValid){
         //update loyalty information using provider
         data = {
-          "loyaltyCount" : 100,
-          "loyaltyDeal" : this.values[0].toLowerCase(),
-          "loyaltyPoints" : {
+          "loyalty_count" : 100,
+          "loyalty_deal" : this.values[0].toLowerCase(),
+          "loyalty_points" : {
             //*1 to convert from string to number when sending to firebase
             //Dont know why form type number goes to Firebase as string
-            "Fri" : this.values[1].Fri*1,
-            "Mon" : this.values[1].Mon*1,
-            "Sat" : this.values[1].Sat*1,
-            "Sun" : this.values[1].Sun*1,
-            "Thurs" : this.values[1].Thurs*1,
-            "Tues" : this.values[1].Tues*1,
-            "Wed" : this.values[1].Wed*1
+            "fri" : this.values[1].Fri*1,
+            "mon" : this.values[1].Mon*1,
+            "sat" : this.values[1].Sat*1,
+            "sun" : this.values[1].Sun*1,
+            "thur" : this.values[1].Thurs*1,
+            "tues" : this.values[1].Tues*1,
+            "wed" : this.values[1].Wed*1
           }
         }
-        this.vendProv.editVendorInfo(this.location.key + "/Loyalty", data).then(_ => {
+        this.vendProv.editVendorInfo(this.location.key + "/loyalty", data).then(_ => {
           console.log('success');
           this.close();
         }).catch(err => {
@@ -99,7 +99,7 @@ export class EditItemPage {
         });
       }else if (!this.loyaltyEnabled){
         //We only care to scare the user if they have a loyalty deal running
-        if (this.location.Loyalty.loyaltyDeal){
+        if (this.location.loyalty.loyalty_deal){
           //Make sure user knows what they are doing
           let alert = this.alertCtrl.create({
             title: 'Are you sure?',
@@ -112,9 +112,9 @@ export class EditItemPage {
                 handler: () => {
                   //Remove loyalty program... currently if re-enabled, users keep their point totals
                   data = null;
-                  this.vendProv.removeVendorInfo(this.location.key, "Loyalty/loyaltyCount");
-                  this.vendProv.removeVendorInfo(this.location.key, "Loyalty/loyaltyDeal");
-                  this.vendProv.removeVendorInfo(this.location.key, "Loyalty/loyaltyPoints");
+                  this.vendProv.removeVendorInfo(this.location.key, "loyalty/loyalty_count");
+                  this.vendProv.removeVendorInfo(this.location.key, "loyalty/loyalty_deal");
+                  this.vendProv.removeVendorInfo(this.location.key, "loyalty/loyalty_points");
                   this.close();
                 }
               }

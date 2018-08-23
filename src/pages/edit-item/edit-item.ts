@@ -82,20 +82,21 @@ export class EditItemPage {
           "loyalty_points" : {
             //*1 to convert from string to number when sending to firebase
             //Dont know why form type number goes to Firebase as string
-            "fri" : this.values[1].Fri*1,
-            "mon" : this.values[1].Mon*1,
-            "sat" : this.values[1].Sat*1,
-            "sun" : this.values[1].Sun*1,
-            "thur" : this.values[1].Thurs*1,
-            "tues" : this.values[1].Tues*1,
-            "wed" : this.values[1].Wed*1
+            "fri" : this.values[1].fri*1,
+            "mon" : this.values[1].mon*1,
+            "sat" : this.values[1].sat*1,
+            "sun" : this.values[1].sun*1,
+            "thur" : this.values[1].thur*1,
+            "tues" : this.values[1].tues*1,
+            "wed" : this.values[1].wed*1
           }
         }
         this.vendProv.editVendorInfo(this.location.key + "/loyalty", data).then(_ => {
           console.log('success');
           this.close();
         }).catch(err => {
-          console.log(err, 'You dont have access!')
+          this.showAlert("Woops!", "Looks like something went wrong. Please contact us and we will fix this ASAP.");
+
         });
       }else if (!this.loyaltyEnabled){
         //We only care to scare the user if they have a loyalty deal running

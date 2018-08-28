@@ -1,0 +1,21 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Account</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="signout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+      <button ion-item (click)="gotoPage(1)">
+        <ion-icon name="logo-usd" item-start></ion-icon>
+        Payment
+      </button>
+    </ion-list>
+</ion-content>

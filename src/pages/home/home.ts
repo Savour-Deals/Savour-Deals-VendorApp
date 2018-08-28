@@ -5,8 +5,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user';
 
 import * as firebase from 'firebase';
-import { MainPage } from "../main/main";
 import { AngularFireDatabase } from 'angularfire2/database';
+import { RootTabPage } from '../root-tab/root-tab';
 
 @Component({
   selector: 'page-home',
@@ -37,7 +37,7 @@ export class HomePage {
 
         this.loader.dismiss();
         console.log('user is logged in');
-        this.navCtrl.setRoot(MainPage);
+        this.navCtrl.setRoot(RootTabPage);
       } else {
         this.loader.dismiss();
         console.log('user not logged in');

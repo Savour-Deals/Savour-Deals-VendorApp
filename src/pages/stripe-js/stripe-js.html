@@ -1,0 +1,47 @@
+<!--
+  Generated template for the StripeJsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Payment</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form id="payment-form">
+      <div class="form-row">
+        <div class="card-element">
+          <label for="name">
+            Card Holder's Name
+          </label>
+          <input id="name"  [class]="nameClass" name="name" placeholder="Jane Doe" autocomplete="name" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="card-element">
+          <label for="email">
+            Email Address
+          </label>
+          <input id="email" [class]="emailClass" name="email" type="email" placeholder="janedoe@gmail.com" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="card-element">
+          Credit or debit card
+        </label>
+        <div id="card-element">
+          <!-- a Stripe Element will be inserted here. -->
+        </div>
+  
+        <!-- Used to display Element errors -->
+        <div id="card-errors" role="alert"></div>
+      </div>
+      <button ion-button block large>Subscribe</button>
+    </form>
+</ion-content>

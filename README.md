@@ -1,6 +1,4 @@
 # SavourVendors
-** Forked to https://github.com/Savour-Deals. No new commits will be pushed here! ** 
-
 
 Vendor portal to pair with Savour Deals.
 

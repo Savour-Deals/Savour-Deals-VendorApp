@@ -5,8 +5,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user';
 
 import * as firebase from 'firebase';
-import { MainPage } from "../main/main";
-import { AngularFireDatabase } from '../../../node_modules/angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { RootTabPage } from '../root-tab/root-tab';
 
 @Component({
   selector: 'page-home',
@@ -29,15 +29,15 @@ export class HomePage {
       if (res && res.uid) {
         const userRef = this.af.object('Users/'+res.uid);
         if (res.displayName){
-          userRef.update({"FullName":res.displayName})
+          userRef.update({"full_name":res.displayName})
         }
         if (res.email){
-          userRef.update({"Email":res.email})
+          userRef.update({"email":res.email})
         }
 
         this.loader.dismiss();
         console.log('user is logged in');
-        this.navCtrl.setRoot(MainPage);
+        this.navCtrl.setRoot(RootTabPage);
       } else {
         this.loader.dismiss();
         console.log('user not logged in');

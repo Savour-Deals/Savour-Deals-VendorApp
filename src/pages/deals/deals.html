@@ -25,7 +25,7 @@
         <ion-avatar item-start>
           <img-loader src="{{deal.photo}}" useImg></img-loader>
         </ion-avatar>
-        <h2>{{deal.dealDesc}}</h2>
+        <h2>{{deal.deal_description}}</h2>
         <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
         <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
       </button>

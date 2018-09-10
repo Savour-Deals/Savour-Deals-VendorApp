@@ -1,9 +1,3 @@
-<!--
-  Generated template for the ViewdealPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar color="primary">
@@ -15,19 +9,19 @@
 
 <ion-content padding>
   <div *ngFor="let item of (deal | async)" >
-    <h1>{{item.rName}}</h1>
+    <h1>{{item.vendor_name}}</h1>
     <img-loader class="dealimg" src="{{item.photo}}" useImg></img-loader>
     <br>
-    <h3>{{item.dealDesc}}</h3>
+    <h3>{{item.deal_description}}</h3>
     <ion-grid>
       <ion-row>
-        <ion-col *ngIf="item.activeDays.Sun==true" class="active-day">Sun</ion-col><ion-col *ngIf="item.activeDays.Sun==false" class="inactive-day">Sun</ion-col>
-        <ion-col *ngIf="item.activeDays.Mon==true" class="active-day">Mon</ion-col><ion-col *ngIf="item.activeDays.Mon==false" class="inactive-day">Mon</ion-col>
-        <ion-col *ngIf="item.activeDays.Tues==true" class="active-day">Tues</ion-col><ion-col *ngIf="item.activeDays.Tues==false" class="inactive-day">Tues</ion-col>
-        <ion-col *ngIf="item.activeDays.Wed==true" class="active-day">Wed</ion-col><ion-col *ngIf="item.activeDays.Wed==false" class="inactive-day">Wed</ion-col>    
-        <ion-col *ngIf="item.activeDays.Thur==true" class="active-day">Thur</ion-col><ion-col *ngIf="item.activeDays.Thur==false" class="inactive-day">Thur</ion-col>
-        <ion-col *ngIf="item.activeDays.Fri==true" class="active-day">Fri</ion-col><ion-col *ngIf="item.activeDays.Fri==false" class="inactive-day">Fri</ion-col>
-        <ion-col *ngIf="item.activeDays.Sat==true" class="active-day">Sat</ion-col><ion-col *ngIf="item.activeDays.Sat==false" class="inactive-day">Sat</ion-col>
+        <ion-col *ngIf="item.active_days.sun==true" class="active-day">Sun</ion-col><ion-col *ngIf="item.active_days.sun==false" class="inactive-day">Sun</ion-col>
+        <ion-col *ngIf="item.active_days.mon==true" class="active-day">Mon</ion-col><ion-col *ngIf="item.active_days.mon==false" class="inactive-day">Mon</ion-col>
+        <ion-col *ngIf="item.active_days.tues==true" class="active-day">Tues</ion-col><ion-col *ngIf="item.active_days.tues==false" class="inactive-day">Tues</ion-col>
+        <ion-col *ngIf="item.active_days.wed==true" class="active-day">Wed</ion-col><ion-col *ngIf="item.active_days.wed==false" class="inactive-day">Wed</ion-col>    
+        <ion-col *ngIf="item.active_days.thur==true" class="active-day">Thur</ion-col><ion-col *ngIf="item.active_days.thur==false" class="inactive-day">Thur</ion-col>
+        <ion-col *ngIf="item.active_days.fri==true" class="active-day">Fri</ion-col><ion-col *ngIf="item.active_days.fri==false" class="inactive-day">Fri</ion-col>
+        <ion-col *ngIf="item.active_days.sat==true" class="active-day">Sat</ion-col><ion-col *ngIf="item.active_days.sat==false" class="inactive-day">Sat</ion-col>
       </ion-row>
       <br>
       <br>

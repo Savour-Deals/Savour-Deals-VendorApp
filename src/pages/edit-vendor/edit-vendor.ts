@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavParams, ModalController, ViewController, LoadingController } from 'ionic-angular';
-import { VendorModel } from '../../models/restaurant';
+import { VendorModel } from '../../models/vendor';
 import { Observable } from 'rxjs';
 import { EditItemPage } from '../edit-item/edit-item';
 import { VendorsProvider } from '../../providers/vendors/vendors';
-import { AngularFireStorage } from '../../../node_modules/angularfire2/storage';
-import { finalize } from '../../../node_modules/rxjs/operators';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'page-edit-vendor',
@@ -15,23 +15,23 @@ export class EditVendorPage {
   public obs: Observable<any[]> 
   public vendor: VendorModel = { 
     key: '',
-    Name: '',
-    Photo: '',
-    Address: '',
-    Description: '',
-    Phone: '',
-    Loyalty: {
+    name: '',
+    photo: '',
+    address: '',
+    description: '',
+    phone: '',
+    loyalty: {
         code: '',
         count: 0,
         deal: '',
         points: {
-            Mon: 0,
-            Tues: 0,
-            Wed: 0,
-            Thurs: 0,
-            Fri: 0,
-            Sat: 0,
-            Sun : 0
+            mon: 0,
+            tues: 0,
+            wed: 0,
+            thur: 0,
+            fri: 0,
+            sat: 0,
+            sun : 0
         }
     }
   };
@@ -41,11 +41,11 @@ export class EditVendorPage {
     this.obs = navParams.get('loc');
     this.obs.subscribe(loc =>{
       this.vendor.key = loc[0].key;
-      this.vendor.Name = loc[0].Name;
-      this.vendor.Photo = loc[0].Photo;
-      this.vendor.Address = loc[0].Address;
-      this.vendor.Description = loc[0].Description;
-      this.vendor.Loyalty = loc[0].loyalty;
+      this.vendor.name = loc[0].Name;
+      this.vendor.photo = loc[0].Photo;
+      this.vendor.address = loc[0].Address;
+      this.vendor.description = loc[0].Description;
+      this.vendor.loyalty = loc[0].loyalty;
     })
   }
 
@@ -101,8 +101,8 @@ export class EditVendorPage {
               finalize(() => {
                 // tempThis.downloadURL = tempThis.ref.getDownloadURL()
                 tempThis.ref.getDownloadURL().subscribe(url => {
-                  tempThis.vendor.Photo = url;
-                  tempThis.vendProv.editVendorInfo(tempThis.vendor.key, {"Photo":url});
+                  tempThis.vendor.photo = url;
+                  tempThis.vendProv.editVendorInfo(tempThis.vendor.key, {"photo":url});
                   loading.dismiss();          
                 });
               })

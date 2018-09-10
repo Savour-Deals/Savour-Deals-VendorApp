@@ -35,8 +35,9 @@ import { EditVendorPageModule } from '../pages/edit-vendor/edit-vendor.module';
 import { AppDataProvider } from '../providers/app-data/app-data';
 import { ImgPopoverPage } from '../pages/img-popover/img-popover';
 import { EditItemPage } from '../pages/edit-item/edit-item';
-
-
+import { RootTabPage } from '../pages/root-tab/root-tab';
+import { AccountPage } from '../pages/account/account';
+import { StripeJsPage } from '../pages/stripe-js/stripe-js';
 
 
 @NgModule({
@@ -48,7 +49,10 @@ import { EditItemPage } from '../pages/edit-item/edit-item';
     MainPage,
     ViewdealPage,
     ImgPopoverPage,
-    EditItemPage
+    EditItemPage,
+    RootTabPage,
+    AccountPage,
+    StripeJsPage
    ],
   imports: [
     BrowserModule,
@@ -73,7 +77,10 @@ import { EditItemPage } from '../pages/edit-item/edit-item';
     MainPage,
     ViewdealPage,
     ImgPopoverPage,
-    EditItemPage
+    EditItemPage,
+    RootTabPage,
+    AccountPage,
+    StripeJsPage
   ],
   providers: [
     SplashScreen,

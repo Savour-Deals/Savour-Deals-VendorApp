@@ -5,7 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { VendorPage } from '../vendor/vendor';
 import { VendorsProvider } from '../../providers/vendors/vendors';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Subscription } from '../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 
 
 @IonicPage()
@@ -46,8 +46,8 @@ export class MainPage {
       this.isVendor = false;
       this.user = obj.payload.val();
       if(this.user != null){
-        if (this.user.Role != null){
-          if (this.user.Role == "admin"){
+        if (this.user.role != null){
+          if (this.user.role == "admin"){
             this.isVendor = true;
             this.vendProv.getVendors().subscribe(locs=>{
               locs.forEach(loc => {
@@ -61,11 +61,11 @@ export class MainPage {
               });
               this.isLoaded = true;
             });
-          }else if (this.user.Role == "vendor"){
+          }else if (this.user.role == "vendor"){
             this.isVendor = true;
             var l = [];
             //Get locations this vendor has
-            obj.payload.child("Locations").forEach(function(temp) {
+            obj.payload.child("locations").forEach(function(temp) {
               if (temp.val() === true){
                 l.push(temp.key);
               }

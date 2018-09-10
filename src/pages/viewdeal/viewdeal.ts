@@ -34,9 +34,9 @@ export class ViewdealPage {
       )
     );
     this.deal.subscribe(result => {
-      this.start = moment.unix(result[0].StartTime).format('MMMM Do YYYY');
-      this.end = moment.unix(result[0].EndTime).format('MMMM Do YYYY');
-      this.times = moment.unix(result[0].StartTime).format("h:mm a") + " - " + moment.unix(result[0].EndTime).format("h:mm a");
+      this.start = moment.unix(result[0].start_time).format('MMMM Do YYYY');
+      this.end = moment.unix(result[0].end_time).format('MMMM Do YYYY');
+      this.times = moment.unix(result[0].start_time).format("h:mm a") + " - " + moment.unix(result[0].end_time).format("h:mm a");
       if (this.times == "12:00 am - 12:00 am"){
         this.times = "All Day"
       }

@@ -1,12 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-/*
-  Generated class for the VendorsProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DealsProvider {
   constructor(public http: HttpClient, private af: AngularFireDatabase) {
@@ -19,7 +14,7 @@ export class DealsProvider {
 
   getDealsByID(ID: string){
     console.log(ID);
-    return this.af.list('Deals', ref => ref.orderByChild('rID').equalTo(ID)).snapshotChanges();
+    return this.af.list('Deals', ref => ref.orderByChild('vendor_id').equalTo(ID)).snapshotChanges();
   }
   
   getDealByKey(key: string){

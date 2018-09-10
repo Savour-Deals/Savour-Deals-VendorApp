@@ -8,10 +8,10 @@
   <ion-navbar color="primary">
     <ion-title>My Locations</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only (click)="signout()">
-          <ion-icon name="log-out"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button icon-only (click)="signout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -23,11 +23,11 @@
       <h1>You have no locations!</h1>
     </div>
     <ion-list>
-      <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.Name, keys[i])">
+      <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])">
         <ion-avatar item-start>
-          <img-loader src="{{location.Photo}}" useImg></img-loader>
+          <img-loader src="{{location.photo}}" useImg></img-loader>
         </ion-avatar>
-        <h2>{{location.Name}}</h2>
+        <h2>{{location.name}}</h2>
       </button>
     </ion-list>
   </div>

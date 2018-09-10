@@ -11,7 +11,7 @@
 <ion-content padding>
     <ion-list *ngFor="let loc of (obs | async)">
         <div class="container" (click)="file.click()">
-          <img-loader height="200px" class="dealimg" src="{{loc.Photo}}" useImg>         
+          <img-loader height="200px" class="dealimg" src="{{loc.photo}}" useImg>         
             <div class="centered">
               <h3>Click to edit</h3>
             </div>

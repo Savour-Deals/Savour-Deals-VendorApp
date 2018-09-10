@@ -23,7 +23,7 @@ export class VendorsProvider {
   }
   getVendorsByPlaceID(ID: string){
     console.log(ID);
-    return this.af.list('Vendors', ref => ref.orderByChild('placeID').equalTo(ID)).snapshotChanges();
+    return this.af.list('Vendors', ref => ref.orderByChild('place_id').equalTo(ID)).snapshotChanges();
   }
 
   editVendorInfo(id,data){

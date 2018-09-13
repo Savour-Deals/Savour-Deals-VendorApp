@@ -1,0 +1,31 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+
+@Injectable()
+export class AccountProvider {
+
+  constructor(public http: HttpClient, private af: AngularFireDatabase) {
+  
+  }
+
+  getStripeCustomerID(ID: string){
+    return this.af.object('Users/'+ID+'/stripe/customer_id').snapshotChanges();
+  }
+
+  getStripeSubscriptionID(ID: string){
+    return this.af.object('Users/'+ID+'/stripe/subscription_id').snapshotChanges();
+  }
+
+  getStripeSources(ID: string){
+    return this.af.list('Users/'+ID+'/stripe/sources').valueChanges();
+  }
+  getStripeCurrentSource(ID: string){
+    return this.af.object('Users/'+ID+'/stripe/current_source').snapshotChanges();
+  }
+
+  getName(ID: string){
+    return this.af.object('Users/'+ID+'/full_name').snapshotChanges();
+  }
+
+}

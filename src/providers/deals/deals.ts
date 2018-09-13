@@ -13,12 +13,10 @@ export class DealsProvider {
   }
 
   getDealsByID(ID: string){
-    console.log(ID);
     return this.af.list('Deals', ref => ref.orderByChild('vendor_id').equalTo(ID)).snapshotChanges();
   }
   
   getDealByKey(key: string){
-    console.log(key);
     return this.af.list('Deals', ref => ref.orderByKey().equalTo(key)).snapshotChanges();
   }
 

@@ -38,6 +38,10 @@ import { EditItemPage } from '../pages/edit-item/edit-item';
 import { RootTabPage } from '../pages/root-tab/root-tab';
 import { AccountPage } from '../pages/account/account';
 import { StripeJsPage } from '../pages/stripe-js/stripe-js';
+import { AngularFireFunctions } from 'angularfire2/functions';
+import { AccountProvider } from '../providers/account/account';
+
+
 
 
 @NgModule({
@@ -85,11 +89,13 @@ import { StripeJsPage } from '../pages/stripe-js/stripe-js';
   providers: [
     SplashScreen,
     AngularFireDatabase,
+    AngularFireFunctions,
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     VendorsProvider,
     DealsProvider,
-    AppDataProvider
+    AppDataProvider,
+    AccountProvider
   ]
 })
 export class AppModule {}

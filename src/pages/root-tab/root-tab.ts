@@ -18,7 +18,6 @@ export class RootTabPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RootTabPage');
   }
 
 }

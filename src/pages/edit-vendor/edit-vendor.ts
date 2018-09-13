@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ModalController, ViewController, LoadingController } from 'ionic-angular';
+import { NavParams, ModalController, ViewController, LoadingController, AlertController } from 'ionic-angular';
 import { VendorModel } from '../../models/vendor';
 import { Observable } from 'rxjs';
 import { EditItemPage } from '../edit-item/edit-item';
@@ -28,16 +28,25 @@ export class EditVendorPage {
             mon: 0,
             tues: 0,
             wed: 0,
-            thur: 0,
+            thurs: 0,
             fri: 0,
             sat: 0,
             sun : 0
         }
+    },
+    daily_hours: {
+      mon: '',
+      tues: '',
+      wed: '',
+      thurs: '',
+      fri: '',
+      sat: '',
+      sun : '',
     }
   };
   ref: any;
   
-  constructor(public viewCtrl: ViewController, public modalCtrl: ModalController, public navParams: NavParams, public vendProv: VendorsProvider,private afStorage: AngularFireStorage, private loadingCtrl: LoadingController) {
+  constructor(private alertCtrl: AlertController ,public viewCtrl: ViewController, public modalCtrl: ModalController, public navParams: NavParams, public vendProv: VendorsProvider,private afStorage: AngularFireStorage, private loadingCtrl: LoadingController) {
     this.obs = navParams.get('loc');
     this.obs.subscribe(loc =>{
       this.vendor.key = loc[0].key;
@@ -46,6 +55,7 @@ export class EditVendorPage {
       this.vendor.address = loc[0].Address;
       this.vendor.description = loc[0].Description;
       this.vendor.loyalty = loc[0].loyalty;
+      this.vendor.daily_hours = loc[0].daily_hours;
     })
   }
 
@@ -54,16 +64,23 @@ export class EditVendorPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditVendorPage');
   }
 
   editInfo(loc: any, item: number){
-    let popover = this.modalCtrl.create(EditItemPage, {
-      item: item,
-      location: loc
-    }, { cssClass: 'my-modal-inner my-stretch'});
-    popover.present({
-    });
+    if (item < 4){
+      let popover = this.modalCtrl.create(EditItemPage, {
+        item: item,
+        location: loc
+      }, { cssClass: 'my-modal-inner my-stretch'});
+      popover.present();
+    }else{
+      let alert = this.alertCtrl.create({
+        title: 'Page not found!',
+        subTitle: 'The page to edit this item was not found. Please try again later.',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+    }
   }
 
   upload(event) {
@@ -85,7 +102,7 @@ export class EditVendorPage {
         image.onload = function () {
           var height = image.height;
           var width = image.width;
-          if (height < 300 || width < 300) {
+          if (height < 10 || width < 10) {
               alert("Please select a higher resolution photo.");
               return false;
           }else{

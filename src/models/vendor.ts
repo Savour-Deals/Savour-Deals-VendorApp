@@ -13,10 +13,19 @@ export interface VendorModel {
             mon: number;
             tues: number;
             wed: number;
-            thur: number;
+            thurs: number;
             fri: number;
             sat: number;
             sun : number;
         }
+    };
+    daily_hours: {
+        mon: string;
+        tues: string;
+        wed: string;
+        thurs: string;
+        fri: string;
+        sat: string;
+        sun : string;
     }
 }

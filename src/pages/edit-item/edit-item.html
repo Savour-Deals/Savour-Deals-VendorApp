@@ -39,7 +39,7 @@
           </ion-item>
           <ion-item>
             <ion-label >Thursday</ion-label>
-            <ion-input type="number" [placeholder]="values[1].thur" [(ngModel)]="values[1].thur" [disabled]="!loyaltyEnabled"></ion-input>
+            <ion-input type="number" [placeholder]="values[1].thurs" [(ngModel)]="values[1].thurs" [disabled]="!loyaltyEnabled"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label >Friday</ion-label>
@@ -55,6 +55,44 @@
           </ion-item>
         </div>
     </ion-list>
+  </div>
+  <div *ngIf="item===3">
+    <h3>Hours of Operation</h3>
+    <ion-grid >
+      <div *ngFor="let day of values; let i = index" [attr.data-index]="i">
+        <ion-row class="header">
+          <ion-col >
+            <h5>{{day[0]}}:</h5>
+          </ion-col>
+          <ion-col>
+            <ion-checkbox [disabled]="day[2]" [(ngModel)]="secondary[i]"></ion-checkbox>
+            Split hours
+          </ion-col>
+          <ion-col>
+            <ion-checkbox [(ngModel)]="day[2]"></ion-checkbox>
+            Closed          
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col>
+            <ion-datetime [disabled]="day[2]" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="day[1][0][0]"></ion-datetime>
+          </ion-col>
+          <ion-col ><ion-label text-center >to</ion-label></ion-col>
+          <ion-col >
+            <ion-datetime [disabled]="day[2]" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="day[1][0][1]"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="!secondary[i]" flex-wrap:nowrap>
+          <ion-col>
+            <ion-datetime [disabled]="day[2]" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="day[1][1][0]"></ion-datetime>
+          </ion-col>
+          <ion-col ><ion-label text-center >to</ion-label></ion-col>
+          <ion-col>
+            <ion-datetime [disabled]="day[2]" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="day[1][1][1]"></ion-datetime>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid> 
   </div>
 </ion-content>
 <ion-footer>

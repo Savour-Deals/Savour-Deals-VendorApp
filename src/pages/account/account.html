@@ -12,10 +12,19 @@
 
 
 <ion-content padding>
-    <ion-list>
-      <button ion-item (click)="gotoPage(1)">
-        <ion-icon name="logo-usd" item-start></ion-icon>
-        Payment
-      </button>
-    </ion-list>
+  <h1>Welcome {{full_name}}</h1>
+  <h2>Account page coming soon!</h2>
+  <!-- <ion-list>
+    <button ion-item *ngFor="let src of sources; let i = index" [attr.data-index]="i">
+      <ion-icon name="card" item-start></ion-icon>
+      {{ src.card.brand }} ending in {{ src.card.last4 }}
+      <br> 
+      Expiration: {{ src.card.exp_month}} / {{src.card.exp_year}}
+      <ion-icon name="checkmark" *ngIf="src.id==current_source" item-end></ion-icon>
+    </button>
+    <button ion-item (click)="gotoPage(1)">
+      <ion-icon name="add" item-start></ion-icon>
+      Add Card
+    </button>
+  </ion-list> -->
 </ion-content>

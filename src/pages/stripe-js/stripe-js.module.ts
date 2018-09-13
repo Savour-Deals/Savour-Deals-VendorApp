@@ -4,7 +4,6 @@ import { StripeJsPage } from './stripe-js';
 
 @NgModule({
   declarations: [
-    StripeJsPage,
   ],
   imports: [
     IonicPageModule.forChild(StripeJsPage),

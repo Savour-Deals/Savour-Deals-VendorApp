@@ -25,7 +25,7 @@ export class StripeJsPage {
   nameClass =  "StripeElement"
 
   private cust_id: any;
-  private sub_id: any;
+  private sub_id: any = null;
   private source: any;
   
   constructor(public viewCtrl: ViewController,public navCtrl: NavController, private afauth: AngularFireAuth, public loadingCtrl: LoadingController, public navParams: NavParams, private afFunc: AngularFireFunctions, private accProv: AccountProvider) {
@@ -39,7 +39,7 @@ export class StripeJsPage {
     });
     this.accProv.getStripeSubscriptionID(uid).first().subscribe(sub_id=>{
       if (sub_id.payload.val()==null){
-        this.sub_id = null;
+        this.sub_id = this.sub_id;
       }else{
         this.sub_id = sub_id.payload.val();
       }
@@ -119,8 +119,8 @@ export class StripeJsPage {
             this.nameClass = (this.name!="") ? "" : "StripeElement--invalid"
     
             if (result.error) {
-              var errorElement = document.getElementById('card-errors');
-              errorElement.textContent = result.error.message;
+              var errElement = document.getElementById('card-errors');
+              errElement.textContent = result.error.message;
             } else {
               // Send the token to your server.
               if (this.name!=""){

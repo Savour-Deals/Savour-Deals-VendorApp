@@ -4,7 +4,6 @@ import { AccountPage } from './account';
 
 @NgModule({
   declarations: [
-    AccountPage,
   ],
   imports: [
     IonicPageModule.forChild(AccountPage),

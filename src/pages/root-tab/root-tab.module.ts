@@ -4,7 +4,6 @@ import { RootTabPage } from './root-tab';
 
 @NgModule({
   declarations: [
-    RootTabPage,
   ],
   imports: [
     IonicPageModule.forChild(RootTabPage),

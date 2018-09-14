@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 import { StripeJsPage } from '../stripe-js/stripe-js';
 import { AccountProvider } from '../../providers/account/account';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -18,7 +18,7 @@ export class AccountPage {
   full_name: any;
   sources=[];
 
-  constructor(public af: AngularFireDatabase, private afFunc: AngularFireFunctions, public modalCtrl: ModalController, private afauth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, private accProv: AccountProvider) {
+  constructor(private app:App,public af: AngularFireDatabase, private afFunc: AngularFireFunctions, public modalCtrl: ModalController, private afauth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, private accProv: AccountProvider) {
     const uid = this.afauth.auth.currentUser.uid;
     this.accProv.getStripeCustomerID(uid).first().subscribe(cust_id=>{
       if (cust_id.payload.val()==null){
@@ -49,9 +49,9 @@ export class AccountPage {
   signout(){
     this.af.database.goOffline();
     this.afauth.auth.signOut().then(val =>{
-      this.navCtrl.setRoot(HomePage);
+      this.app.getRootNav().setRoot(HomePage);
     }).catch(err => {//TODO: catch specific errors
-      this.navCtrl.setRoot(HomePage);
+      this.app.getRootNav().setRoot(HomePage);
     });
   }
 

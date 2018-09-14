@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { VendorPage } from '../vendor/vendor';
@@ -28,16 +28,16 @@ export class MainPage {
   public set userSub(value: Subscription) {
     this._userSub = value;
   }
-  constructor( private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
+  constructor(private app:App,private afauth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
 
   }
 
   signout(){
     this.af.database.goOffline();
     this.afauth.auth.signOut().then(val =>{
-      this.navCtrl.setRoot(HomePage);
+      this.app.getRootNav().setRoot(HomePage);
     }).catch(err => {//TODO: catch specific errors
-      this.navCtrl.setRoot(HomePage);
+      this.app.getRootNav().setRoot(HomePage);
     });
   }
 

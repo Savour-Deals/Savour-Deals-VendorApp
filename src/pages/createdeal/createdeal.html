@@ -45,6 +45,10 @@
             <ion-label>Entire Order</ion-label>
             <ion-radio value="Entire Order"></ion-radio>
           </ion-item>
+          <ion-item *ngIf="isAdmin" >
+              <ion-label>Custom</ion-label>
+              <ion-radio value="Custom"></ion-radio>
+          </ion-item>
         </ion-list>
       </div>
     </ion-slide>
@@ -61,15 +65,21 @@
           <ion-segment-button value="BOGO">
             BOGO
           </ion-segment-button>
+          <ion-segment-button  value="custom" [hidden]="dealType !== 'Custom'">
+            Custom
+          </ion-segment-button>
         </ion-segment>
         <br>
         <br>
-        <ion-select [(ngModel)]="discount" *ngIf="discountType == 'percent'" okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
-          <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
-            {{ item }}
-          </ion-option>
-        </ion-select>
-        <div *ngIf="discountType == 'dollar'">
+        <div *ngIf="discountType === 'percent'" >
+          <ion-select [(ngModel)]="discount" okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
+              <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
+                {{ item }}
+              </ion-option>
+          </ion-select>
+        </div>
+
+        <div *ngIf="discountType === 'dollar'">
           <ion-select [(ngModel)]="discount"  okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
               <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
                 {{ item }}
@@ -84,7 +94,14 @@
             </ion-select>
             <p align="center">To not set a minimum price, leave second option blank.</p> -->
         </div>
-        <h2 *ngIf="discountType == 'BOGO'"> Buy One Get One</h2>
+        <div *ngIf="discountType === 'BOGO'">
+            Buy One Get One
+        </div>
+        <div *ngIf="discountType === 'custom'">
+            <ion-label>Enter Custom Deal</ion-label>
+            <ion-input [(ngModel)]="discount" placeholder="Custom Deal"></ion-input>
+        </div>
+
    </ion-slide>
   
     <ion-slide>

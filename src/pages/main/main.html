@@ -18,30 +18,29 @@
 
 
 <ion-content padding>
-  <div *ngIf='isCurrent == true' [hidden]="isVendor==false">
-    <div *ngIf="1 > locations?.length" [hidden]="!isLoaded">
-      <h1>You have no locations!</h1>
+  <span *ngIf="isLoaded" >
+    <div *ngIf='isVendor'>
+      <div *ngIf='!active' class="center"> 
+        <h4>Your subscription to Savour Deals is currently not active. Please set up a payment through the accounts tab.</h4>
+      </div>  
+      <div *ngIf="1 > locations?.length" [hidden]="!active" class="center">
+        You have no locations! Contact us for help getting set up.
+      </div>
+      <ion-list>
+        <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])" [disabled]="!active">
+          <ion-avatar item-start>
+            <img-loader src="{{location.photo}}" useImg></img-loader>
+          </ion-avatar>
+          <h2>{{location.name}}</h2>
+        </button>
+      </ion-list>
     </div>
-    <ion-list>
-      <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])">
-        <ion-avatar item-start>
-          <img-loader src="{{location.photo}}" useImg></img-loader>
-        </ion-avatar>
-        <h2>{{location.name}}</h2>
-      </button>
-    </ion-list>
-  </div>
-  <div *ngIf='isCurrent == false'> 
-      <h4>Your subscription to Savour Deals is currently not active. Click below to begin.</h4>
+    <div *ngIf="!isVendor">
+      <h1 class="center">You're almost done!</h1>
       <br>
+      <h3 class="center" >Please fill out the form linked below and we will finish getting you set up within 24 hours.</h3>
+      <a href="https://www.savourdeals.com/signup/#Sign-Up" target="_blank" class="button">Finish Signup</a>
       <br>
-      <button ion-button color="primary" (click)="beginSubscription()">Subscribe</button>
-  </div>
-  <div *ngIf="isVendor == false">
-    <h1>You're almost done!</h1>
-    <br>
-    <h3>Please fill out the form linked below and we will finish getting you set up within 24 hours.</h3>
-    <a href="https://www.savourdeals.com/signup/#Sign-Up" target="_blank" class="button">Finish Signup</a>
-    <br>
-  </div>
+    </div>
+  </span>
 </ion-content>

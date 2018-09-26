@@ -28,13 +28,6 @@ export class RegisterPage {
     });
     this.afauth.authState.subscribe(res => {
       if (res && res.uid) {
-        const userRef = this.af.object('Users/'+res.uid);
-        if (res.displayName){
-          userRef.update({"full_name":res.displayName})
-        }
-        if (res.email){
-          userRef.update({"email":res.email})
-        }
         this.loader.dismiss();
         console.log('user is logged in');
         this.navCtrl.setRoot(MainPage);
@@ -52,9 +45,8 @@ export class RegisterPage {
   signup(){
     this.presentLoading();
     if (this.SignupForm.valid){
-      this.afauth.auth.createUserWithEmailAndPassword(this.SignupForm.value.email, this.SignupForm.value.password).then( authData => {
-        const userRef = this.af.object('Users/'+authData.user.uid);
-        userRef.update({"email":this.SignupForm.value.email,"full_name":this.SignupForm.value.name});
+      this.afauth.auth.createUserWithEmailAndPassword(this.SignupForm.value.email, this.SignupForm.value.password).then( authData => { 
+
       }, error => {
         this.loader.dismiss().then( () => {
           let alert = this.alertCtrl.create({

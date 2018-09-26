@@ -6,6 +6,8 @@ import { DealsProvider } from '../../providers/deals/deals';
 import { finalize } from 'rxjs/operators';
 import {AppDataProvider} from '../../providers/app-data/app-data'
 import { ImgPopoverPage } from '../img-popover/img-popover';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 const randomId = Math.random().toString(36).substring(2);
 
@@ -40,6 +42,7 @@ export class CreatedealPage {
   allDay: boolean = true;
   
   min: string = moment().format('YYYY-MM-DD');
+  user: any;
 
   dealType:string;
   startDate:string;
@@ -49,7 +52,7 @@ export class CreatedealPage {
   discount: string;
   discountOf: string;
   img:string;
-
+  isAdmin: boolean = false;
 
   dispStart:string;
   dispEnd:string;
@@ -77,11 +80,21 @@ export class CreatedealPage {
   uid: string;
   ref: any;
 
-  constructor(public loadingCtrl: LoadingController,public modalCtrl: ModalController,private afStorage: AngularFireStorage,public platform: Platform, public viewCtrl: ViewController, public navParams: NavParams, public alertCtrl: AlertController, public dealProv: DealsProvider, public appData: AppDataProvider) {
+  constructor(public loadingCtrl: LoadingController, private afauth: AngularFireAuth,public af: AngularFireDatabase, public modalCtrl: ModalController,private afStorage: AngularFireStorage,public platform: Platform, public viewCtrl: ViewController, public navParams: NavParams, public alertCtrl: AlertController, public dealProv: DealsProvider, public appData: AppDataProvider) {
     this.discountType = "percent";
     this.dealType = "Entree";
     this.newDeal.vendor_id = this.navParams.get("ID");
     this.newDeal.vendor_name = this.navParams.get("name");
+    this.af.object('Users/'+this.afauth.auth.currentUser.uid).snapshotChanges().subscribe( obj =>{
+      this.user = obj.payload.val();
+      if(this.user != null){
+        if (this.user.role != null){
+          if (this.user.role == "admin"){
+            this.isAdmin = true;
+          }
+        }
+      }
+    });
     if (this.platform.is('mobile')) {
       this.mobile = true;
     }if (platform.is('core')) {

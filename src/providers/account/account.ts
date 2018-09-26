@@ -13,8 +13,12 @@ export class AccountProvider {
     return this.af.object('Users/'+ID+'/stripe/customer_id').snapshotChanges();
   }
 
+  getStripeActive(ID: string){
+    return this.af.object('Users/'+ID+'/stripe/active').snapshotChanges();
+  }
+
   getStripeSubscriptionID(ID: string){
-    return this.af.object('Users/'+ID+'/stripe/subscription_id').snapshotChanges();
+    return this.af.object('Users/'+ID+'/stripe/stripe_subscription_id').snapshotChanges();
   }
 
   getStripeSources(ID: string){
@@ -26,6 +30,10 @@ export class AccountProvider {
 
   getName(ID: string){
     return this.af.object('Users/'+ID+'/full_name').snapshotChanges();
+  }
+
+  getUser(ID: string){
+    return this.af.list('Users/'+ID).snapshotChanges();
   }
 
 }

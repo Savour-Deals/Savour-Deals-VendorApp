@@ -2,10 +2,12 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Payment</ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">Cancel</button>
+    <ion-buttons left>
+        <button ion-button icon-only (click)='dismiss()'>
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
     </ion-buttons>
+    <ion-title>Payment</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -13,9 +15,6 @@
 
 <ion-content padding>
     <form *ngIf="!cust_id" id="payment-form">
-      <div class="form-row">
-          <h1>Subscribe</h1>
-      </div>
       <div class="form-row">
         <div class="card-element">
           <label for="name">
@@ -32,6 +31,14 @@
           <input id="email" [class]="emailClass" name="email" [(ngModel)]="email" type="email" placeholder="janedoe@gmail.com" autocomplete="email" required>
         </div>
       </div>
+      <div class="form-row">
+          <div class="card-element">
+            <label for="coupon">
+              Coupon Code
+            </label>
+            <input id="coupon" [class]="couponClass" name="coupon" [(ngModel)]="coupon" placeholder="1234ABCD">
+          </div>
+        </div>
       <div class="form-row">
         <label for="card-element">
           Credit or debit card

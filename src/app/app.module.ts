@@ -1,3 +1,4 @@
+import { PaymentPage } from './../pages/payment/payment';
 //angular
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -56,7 +57,8 @@ import { AccountProvider } from '../providers/account/account';
     EditItemPage,
     RootTabPage,
     AccountPage,
-    StripeJsPage
+    StripeJsPage,
+    PaymentPage
    ],
   imports: [
     BrowserModule,
@@ -84,7 +86,8 @@ import { AccountProvider } from '../providers/account/account';
     EditItemPage,
     RootTabPage,
     AccountPage,
-    StripeJsPage
+    StripeJsPage,
+    PaymentPage
   ],
   providers: [
     SplashScreen,

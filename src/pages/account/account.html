@@ -18,7 +18,7 @@
   <div *ngIf="cust_id && customerLoaded">
     <span *ngIf="curr_invoice && planData && sub_id">
       <ion-item>
-        {{planData.plan.nickname}} (${{planData.plan.amount/100 | number:'1.2-2'}}/Redemption)
+        Savour Deals Redemptions (${{planData.plan.amount/100 | number:'1.2-2'}}/Redemption)
       </ion-item>
       <ion-item>
         Current Redemptions: {{planData.quantity}}  

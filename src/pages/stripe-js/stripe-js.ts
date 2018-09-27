@@ -14,7 +14,10 @@ declare var Stripe;
 })
 export class StripeJsPage {
 
-  stripe = Stripe('pk_test_MTFwtUt1ZtK46XEoHemLdqVo');
+  // stripe = Stripe('pk_test_MTFwtUt1ZtK46XEoHemLdqVo');
+  stripe = Stripe('pk_live_Xp05DnQBrOi2eU60XP06Jkj2');
+
+  
   card: any;
   email: String = "";
   name: String = "";

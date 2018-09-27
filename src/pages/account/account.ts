@@ -1,4 +1,3 @@
-import { Subscription } from 'rxjs';
 import { PaymentPage } from './../payment/payment';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App, LoadingController } from 'ionic-angular';
@@ -173,7 +172,9 @@ export class AccountPage {
       updateStripeSubscription({"sub_id":this.sub_id, cust_id: this.cust_id}).toPromise().then(result => {
         this.sub_id = null;
         this.setInvoiceData();
-        loader.dismiss();
+        setTimeout(() => {
+          loader.dismiss();
+        },2000);
       },error => {
         alert(error.message);
         loader.dismiss();
@@ -184,7 +185,9 @@ export class AccountPage {
       updateStripeSubscription({cust_id: this.cust_id}).toPromise().then(result => {
         this.sub_id = result.sub_id;
         this.setInvoiceData();
-        loader.dismiss();
+        setTimeout(() => {
+          loader.dismiss();
+        },2000);
       },error => {
         alert(error.message);
         loader.dismiss();

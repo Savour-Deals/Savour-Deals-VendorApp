@@ -1,9 +1,4 @@
-<!--
-  Generated template for the CreatedealPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar color="primary">
       <ion-buttons start>
@@ -54,55 +49,54 @@
     </ion-slide>
 
     <ion-slide class="deal-type">
-        <h3>What discount would you like?</h3>
-        <ion-segment [(ngModel)]="discountType" color="primary">
-          <ion-segment-button value="percent">
-            %
-          </ion-segment-button>
-          <ion-segment-button value="dollar">
-            $
-          </ion-segment-button>
-          <ion-segment-button value="BOGO">
-            BOGO
-          </ion-segment-button>
-          <ion-segment-button  value="custom" [hidden]="dealType !== 'Custom'">
-            Custom
-          </ion-segment-button>
-        </ion-segment>
-        <br>
-        <br>
-        <div *ngIf="discountType === 'percent'" >
-          <ion-select [(ngModel)]="discount" okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
-              <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
-                {{ item }}
-              </ion-option>
+      <h3>What discount would you like?</h3>
+      <ion-segment [(ngModel)]="discountType" color="primary">
+        <ion-segment-button value="percent">
+          %
+        </ion-segment-button>
+        <ion-segment-button value="dollar">
+          $
+        </ion-segment-button>
+        <ion-segment-button value="BOGO">
+          BOGO
+        </ion-segment-button>
+        <ion-segment-button  value="custom" [hidden]="dealType !== 'Custom'">
+          Custom
+        </ion-segment-button>
+      </ion-segment>
+      <br>
+      <br>
+      <div *ngIf="discountType === 'percent'" >
+        <ion-select [(ngModel)]="discount" okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
+            <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
+              {{ item }}
+            </ion-option>
+        </ion-select>
+      </div>
+
+      <div *ngIf="discountType === 'dollar'">
+        <ion-select [(ngModel)]="discount"  okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
+            <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
+              {{ item }}
+            </ion-option>
           </ion-select>
-        </div>
-
-        <div *ngIf="discountType === 'dollar'">
-          <ion-select [(ngModel)]="discount"  okText="Okay" cancelText="Dismiss" placeholder="Select discount amount">
-              <ion-option *ngFor="let item of getDiscounts(discountType)" value="{{item}}">
-                {{ item }}
-              </ion-option>
-            </ion-select>
-            <!-- <p align="center">Off</p>
-            <ion-select [(ngModel)]="discountOf" okText="Okay" cancelText="Dismiss" placeholder="Select minimum">
-              <ion-option value="">Select minimum</ion-option>
-              <ion-option *ngFor="let item of getDiscounts('dollarOf')" value="{{item}}">
-                {{ item }}
-              </ion-option>
-            </ion-select>
-            <p align="center">To not set a minimum price, leave second option blank.</p> -->
-        </div>
-        <div *ngIf="discountType === 'BOGO'">
-            Buy One Get One
-        </div>
-        <div *ngIf="discountType === 'custom'">
-            <ion-label>Enter Custom Deal</ion-label>
-            <ion-input [(ngModel)]="discount" placeholder="Custom Deal"></ion-input>
-        </div>
-
-   </ion-slide>
+          <!-- <p align="center">Off</p>
+          <ion-select [(ngModel)]="discountOf" okText="Okay" cancelText="Dismiss" placeholder="Select minimum">
+            <ion-option value="">Select minimum</ion-option>
+            <ion-option *ngFor="let item of getDiscounts('dollarOf')" value="{{item}}">
+              {{ item }}
+            </ion-option>
+          </ion-select>
+          <p align="center">To not set a minimum price, leave second option blank.</p> -->
+      </div>
+      <div *ngIf="discountType === 'BOGO'">
+          Buy One Get One
+      </div>
+      <div *ngIf="discountType === 'custom'">
+          <ion-label>Enter Custom Deal</ion-label>
+          <ion-input [(ngModel)]="discount" placeholder="Custom Deal"></ion-input>
+      </div>
+    </ion-slide>
   
     <ion-slide>
       <h3>When should we run this deal?</h3>
@@ -162,7 +156,7 @@
           <ion-label *ngIf="dealDays.wed==true" class="active-day" (click)="dealDays.wed=false;"><span>Wednesday</span></ion-label>
           <ion-label *ngIf="dealDays.wed==false" class="inactive-day" (click)="dealDays.wed=true;"><span>Wednesday</span></ion-label>
    
-          <ion-checkbox [(ngModel)]="dealDays.thurs" hidden="true"></ion-checkbox>
+          <ion-checkbox [(ngModel)]="dealDays.thur" hidden="true"></ion-checkbox>
           <ion-label *ngIf="dealDays.thur==true" class="active-day" (click)="dealDays.thur=false;"><span>Thursday</span></ion-label>
           <ion-label *ngIf="dealDays.thur==false" class="inactive-day" (click)="dealDays.thur=true;"><span>Thursday</span></ion-label>
  

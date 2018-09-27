@@ -9,8 +9,6 @@ import { ImgPopoverPage } from '../img-popover/img-popover';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-const randomId = Math.random().toString(36).substring(2);
-
 
 @IonicPage()
 @Component({
@@ -75,7 +73,6 @@ export class CreatedealPage {
   selectedImg: number = -1;
 
   discountType: string;
-
   storage: any;
   uid: string;
   ref: any;
@@ -234,6 +231,8 @@ export class CreatedealPage {
         }else{
           this.newDeal.deal_description = this.discount + " a " + this.discountOf + " " + this.dealType;
         }
+      }else if (this.dealType == "Custom"){
+        this.newDeal.deal_description = this.discount;
       }else{
         if (this.dealType == "Entire Order"){
           this.newDeal.deal_description = this.discount + " " + this.dealType;
@@ -319,6 +318,7 @@ export class CreatedealPage {
             loading.present();
             tempThis.loaded = false;
             tempThis.startedUpload = true;
+            const randomId = Math.random().toString(36).substring(2)
             tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.vendor_id+'/dealPhotos/'+randomId);
             const task = tempThis.ref.put(fileUpload.files[0]);
             task.snapshotChanges().pipe(

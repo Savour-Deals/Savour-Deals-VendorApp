@@ -26,9 +26,6 @@ export class MainPage {
   }
   private loader: any;
 
-  public set userSub(value: Subscription) {
-    this._userSub = value;
-  }
   constructor(private app:App,private afauth: AngularFireAuth, public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots'
@@ -38,8 +35,6 @@ export class MainPage {
 
   signout(){
     this.af.database.goOffline();
-    this.userSub.unsubscribe();
-    this.userSub = null;
     this.afauth.auth.signOut().then(val =>{
       this.app.getRootNav().setRoot(HomePage);
     }).catch(err => {//TODO: catch specific errors
@@ -49,7 +44,7 @@ export class MainPage {
 
 
   ionViewDidLoad() {
-    // this.loader.present();
+    this.af.database.goOnline();
 
     const user = this.afauth.auth.currentUser;
 
@@ -65,10 +60,10 @@ export class MainPage {
       vendorRef.update({"email":user.email});
     }
 
-    this.userSub = this.af.object('Users/'+user.uid).snapshotChanges().subscribe( obj =>{
+    this.af.object('Users/'+user.uid).valueChanges().subscribe( obj =>{
       // this.loader.dismiss();
       this.isVendor = false;
-      this.user = obj.payload.val();
+      this.user = obj;
       let role = this.user.role || "Default";
       if (role == "admin"){
         this.isVendor = true;
@@ -94,12 +89,14 @@ export class MainPage {
         }
         var l = [];
         //Get locations this vendor has
-        obj.payload.child("locations").forEach(function(temp) {
-          if (temp.val() === true){
-            l.push(temp.key);
-          }
-        });
-        if(l.length >0){
+        if (this.user.locations){
+          this.user.locations.forEach(function(temp) {
+            if (temp.val() === true){
+              l.push(temp.key);
+            }
+          });
+        }
+        if(l.length>0){
           for (let location of l){
             this.vendProv.getVendorsByID(location).subscribe(locs=>{
               locs.forEach(loc => { 

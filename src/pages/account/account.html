@@ -17,10 +17,10 @@
   <h2 center>Subscription</h2>
   <div *ngIf="cust_id && customerLoaded">
     <span *ngIf="curr_invoice && planData && sub_id">
-      <ion-item>
+      <ion-item >
         Savour Deals Redemptions (${{planData.plan.amount/100 | number:'1.2-2'}}/Redemption)
       </ion-item>
-      <ion-item>
+      <ion-item >
         Current Redemptions: {{planData.quantity}}  
         <span *ngIf="trialing" > 
           (Free trial ends {{trialEnd}})
@@ -29,26 +29,31 @@
             (${{curr_invoice.amount_due/100 | number:'1.2-2'}})
         </span>
       </ion-item>
-      <ion-item>
+      <ion-item >
         Billing Period: {{billingStart}} - {{billingEnd}}
       </ion-item>
     </span>
-    <ion-list>
-      <span *ngIf="sub_id">
-        <ion-item *ngIf="current_source" >
+    <span *ngIf="sub_id">
+      <ion-list>
+        <ion-item *ngIf="current_source">
           <ion-icon name="card" item-start></ion-icon>
           {{ current_source.card.brand }} ending in {{ current_source.card.last4 }}
           <br> 
           Expiration: {{ current_source.card.exp_month}} / {{current_source.card.exp_year}}
-          <button ion-button color="secondary" (click)="updateSubscription()" item-end>
-              Cancel Subscription
-          </button>  
-          <button ion-button color="primary" (click)="gotoPage(1)" item-end>
-            Use another card
-          </button>     
-        </ion-item>
-      </span>
-    </ion-list> 
+          
+        </ion-item> 
+      </ion-list>
+      <button ion-button full color="primary"  (click)="gotoPage(1)" >
+        Use another card
+      </button> 
+      <button ion-button full color="danger"  (click)="updateSubscription()" >
+        Cancel Subscription
+      </button>  
+    
+
+     
+    </span>
+      
     <span *ngIf="!sub_id">
       <p style="color:gray">
       Looks like your subscription was cancelled. Click below to re-subscribe.

@@ -27,7 +27,7 @@
         <h4>You have no locations! Contact us for help getting set up.</h4>
       </div>
       <ion-list>
-        <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])" [disabled]="!active">
+        <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])" [disabled]="!active" text-wrap>
           <ion-avatar item-start>
             <img-loader src="{{location.photo}}" useImg></img-loader>
           </ion-avatar>

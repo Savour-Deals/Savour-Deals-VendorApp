@@ -28,6 +28,7 @@
     "@ionic-native/file": "^4.12.2",
     "@ionic-native/splash-screen": "4.9.1",
     "@ionic-native/status-bar": "4.9.1",
+    "@ionic/lab": "^1.0.11",
     "@ionic/storage": "2.1.3",
     "angular": "^1.7.4",
     "angularfire2": "^5.0.1",
@@ -40,11 +41,12 @@
     "promise-polyfill": "^8.1.0",
     "rxjs": "^6.3.2",
     "rxjs-compat": "^6.3.2",
+    "semver": "^5.5.1",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.1.10",
+    "@ionic/app-scripts": "^3.2.0",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",

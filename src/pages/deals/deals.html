@@ -21,7 +21,7 @@
             Active Deals
             <ion-icon color="success" item-right [name]="isGroupShown(0) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
       </ion-list-header>
-      <button ion-item *ngFor="let deal of activeDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(0) === false">
+      <button ion-item *ngFor="let deal of activeDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(0) === false" text-wrap>
         <ion-avatar item-start>
           <img-loader src="{{deal.photo}}" useImg></img-loader>
         </ion-avatar>
@@ -34,11 +34,11 @@
           Upcoming Deals
           <ion-icon color="success" item-right [name]="isGroupShown(1) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
       </ion-list-header>
-      <button ion-item *ngFor="let deal of upcomingDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(1) === false">
+      <button ion-item *ngFor="let deal of upcomingDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(1) === false" text-wrap>
           <ion-avatar item-start>
             <img-loader src="{{deal.photo}}" useImg></img-loader>
           </ion-avatar>
-          <h2>{{deal.dealDesc}}</h2>
+          <h2>{{deal.deal_description}}</h2>
           <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
           <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
       </button>
@@ -47,11 +47,11 @@
           Expired Deals
           <ion-icon color="success" item-right [name]="isGroupShown(2) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
       </ion-list-header>
-      <button ion-item *ngFor="let deal of expiredDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(2) === false">
+      <button ion-item *ngFor="let deal of expiredDeals" (click)="dealClicked(deal.key)" [hidden]="isGroupShown(2) === false" text-wrap>
           <ion-avatar item-start>
             <img-loader src="{{deal.photo}}" useImg></img-loader>
           </ion-avatar>
-          <h2>{{deal.dealDesc}}</h2>
+          <h2>{{deal.deal_description}}</h2>
           <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
           <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
       </button>

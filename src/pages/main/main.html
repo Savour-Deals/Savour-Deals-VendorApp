@@ -20,7 +20,7 @@
 <ion-content padding>
   <span *ngIf="isLoaded" >
     <div *ngIf='isVendor'>
-      <div *ngIf='!active' class="center"> 
+      <div  *ngIf="!active"  class="center" > 
         <h4>Your subscription to Savour Deals is currently not active. Please set up a payment through the accounts tab.</h4>
       </div>  
       <div *ngIf="1 > locations?.length" [hidden]="!active" class="center">
@@ -42,5 +42,8 @@
       <a href="https://www.savourdeals.com/signup/#Sign-Up" target="_blank" class="button">Finish Signup</a>
       <br>
     </div>
+  </span>
+  <span *ngIf="!isLoaded" class="spinnerCenter">
+    <ion-spinner class="center"  icon="ripple" ></ion-spinner>
   </span>
 </ion-content>

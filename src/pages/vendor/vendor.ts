@@ -29,7 +29,7 @@ export class VendorPage {
     );
   }
   
-  createDealClicked(id,name){
+  createDealClicked(id,name,stripe){
     let profileModal = this.modalCtrl.create(CreatedealPage, {
       ID: id,
       name: name

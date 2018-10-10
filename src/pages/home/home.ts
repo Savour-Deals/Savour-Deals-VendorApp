@@ -21,36 +21,37 @@ export class HomePage {
   
 
   constructor(private afauth: AngularFireAuth, public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public af: AngularFireDatabase) {
-    this.loader = this.loadingCtrl.create({
-
-    });
+    this.loader = this.loadingCtrl.create({});
     this.loader.present();
+
     this.afauth.authState.subscribe(res => {
+      this.loader.dismiss();
       if (res && res.uid) {
-        this.loader.dismiss();
         console.log('user is logged in');
         this.navCtrl.setRoot(RootTabPage);
       } else {
-        this.loader.dismiss();
         console.log('user not logged in');
       }
     });
   }
+
+
   
   async login(user: User) {
     try {
       this.presentLoading();
       const result = await this.afauth.auth.signInWithEmailAndPassword(user.email, user.password);
       if (result){
+
       }
     } catch (e) {
       console.error(e);
-      this.loader.dismiss();
       let alert = this.alertCtrl.create({
         title: 'Login Failed',
         subTitle: 'Login information provided was incorrect. Please try again.',
         buttons: ['Okay']
       });
+      this.loader.dismiss();
       alert.present();
     }
 
@@ -60,12 +61,7 @@ export class HomePage {
     this.presentLoading();
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('public_profile');
-    firebase.auth().signInWithRedirect(provider);
-    firebase.auth().getRedirectResult().then(function(result) {
- 
-    }).catch(function(error) {
-
-    });
+    this.afauth.auth.signInWithRedirect(provider);
   }
 
   register() {

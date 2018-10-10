@@ -28,5 +28,12 @@ page-main {
             text-align: center;
             vertical-align: middle;
         }
+        .spinnerCenter {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100%;
+        }
     }
 }

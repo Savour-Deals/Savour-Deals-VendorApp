@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 export class MainPage {
   public locations = [];
   public keys = [];
-  public active: any;
+  public active: boolean;
   public user: any;
   public isVendor: boolean = true;
   public isLoaded: boolean = false;
@@ -24,16 +24,32 @@ export class MainPage {
   public get userSub(): Subscription {
     return this._userSub;
   }
+  private loader: any;
 
   public set userSub(value: Subscription) {
     this._userSub = value;
   }
   constructor(private app:App,private afauth: AngularFireAuth, public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams, public vendProv: VendorsProvider, public af: AngularFireDatabase) {
-    let loading = this.loadingCtrl.create({
+    this.loader = this.loadingCtrl.create({
       spinner: 'dots'
     });
-    loading.setShowBackdrop(false);
-    loading.present();
+    this.loader.setShowBackdrop(false);
+  }
+
+  signout(){
+    this.af.database.goOffline();
+    this.userSub.unsubscribe();
+    this.userSub = null;
+    this.afauth.auth.signOut().then(val =>{
+      this.app.getRootNav().setRoot(HomePage);
+    }).catch(err => {//TODO: catch specific errors
+      this.app.getRootNav().setRoot(HomePage);
+    });
+  }
+
+
+  ionViewDidLoad() {
+    // this.loader.present();
 
     const user = this.afauth.auth.currentUser;
 
@@ -50,7 +66,7 @@ export class MainPage {
     }
 
     this.userSub = this.af.object('Users/'+user.uid).snapshotChanges().subscribe( obj =>{
-      loading.dismiss();
+      // this.loader.dismiss();
       this.isVendor = false;
       this.user = obj.payload.val();
       let role = this.user.role || "Default";
@@ -83,20 +99,25 @@ export class MainPage {
             l.push(temp.key);
           }
         });
-        for (let location of l){
-          this.vendProv.getVendorsByID(location).subscribe(locs=>{
-            locs.forEach(loc => { 
-              this.isLoaded = true;
-              var idx = this.keys.indexOf(loc.payload.key)
-              if (idx > -1){
-                this.locations[idx] = loc.payload.val();
-              }else{
-                this.locations.push(loc.payload.val());
-                this.keys.push(loc.payload.key);
-              }
+        if(l.length >0){
+          for (let location of l){
+            this.vendProv.getVendorsByID(location).subscribe(locs=>{
+              locs.forEach(loc => { 
+                this.isLoaded = true;
+                var idx = this.keys.indexOf(loc.payload.key)
+                if (idx > -1){
+                  this.locations[idx] = loc.payload.val();
+                }else{
+                  this.locations.push(loc.payload.val());
+                  this.keys.push(loc.payload.key);
+                }
+              });
             });
-          });
+          }
+        }else{
+          this.isLoaded = true;
         }
+
       }else{
         this.isVendor = false;
         this.isLoaded = true;
@@ -104,28 +125,12 @@ export class MainPage {
     });
   }
 
-  signout(){
-    this.af.database.goOffline();
-    this.afauth.auth.signOut().then(val =>{
-      this.app.getRootNav().setRoot(HomePage);
-    }).catch(err => {//TODO: catch specific errors
-      this.app.getRootNav().setRoot(HomePage);
-    });
-  }
-
-  ionViewDidLoad() {
-    
-  }
-
-  locationClicked(placeName, id){
+  locationClicked(placeName, id, stripe){
     this.navCtrl.push(VendorPage, {
       name: placeName,
       ID: id
     });
   }
 
-  beginSubscription(){
-
-  }
 
 }

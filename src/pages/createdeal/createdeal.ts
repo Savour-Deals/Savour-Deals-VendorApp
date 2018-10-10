@@ -77,6 +77,8 @@ export class CreatedealPage {
   uid: string;
   ref: any;
 
+  stripeID: string;
+
   constructor(public loadingCtrl: LoadingController, private afauth: AngularFireAuth,public af: AngularFireDatabase, public modalCtrl: ModalController,private afStorage: AngularFireStorage,public platform: Platform, public viewCtrl: ViewController, public navParams: NavParams, public alertCtrl: AlertController, public dealProv: DealsProvider, public appData: AppDataProvider) {
     this.discountType = "percent";
     this.dealType = "Entree";

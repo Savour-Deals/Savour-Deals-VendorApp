@@ -32,6 +32,10 @@ export class AccountProvider {
     return this.af.object('Users/'+ID+'/full_name').snapshotChanges();
   }
 
+  getRole(ID: string){
+    return this.af.object('Users/'+ID+'/role').snapshotChanges();
+  }
+
   getUser(ID: string){
     return this.af.list('Users/'+ID).snapshotChanges();
   }

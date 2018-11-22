@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class MainPage {
   public locations = [];
+
   public keys = [];
   public active: boolean;
   public user: any;
@@ -88,13 +89,11 @@ export class MainPage {
           this.active = false;
         }
         var l = [];
+
         //Get locations this vendor has
         if (this.user.locations){
-          this.user.locations.forEach(function(temp) {
-            if (temp.val() === true){
-              l.push(temp.key);
-            }
-          });
+          l = Object.keys(this.user.locations);
+
         }
         if(l.length>0){
           for (let location of l){

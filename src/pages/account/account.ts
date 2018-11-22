@@ -8,6 +8,7 @@ import { HomePage } from '../home/home';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { StripeJsPage } from '../stripe-js/stripe-js';
 import * as moment from 'moment';
+import { AppDataProvider } from '../../providers/app-data/app-data';
 
 @IonicPage()
 @Component({
@@ -26,6 +27,9 @@ export class AccountPage {
   billingStart: string;
   billingEnd: string;
 
+  private user:any;
+  isAdmin: boolean;
+
   trialing: boolean;
   trialEnd: string;
 
@@ -33,59 +37,80 @@ export class AccountPage {
   full_name: any;
   sources = [];
 
-  constructor(private app:App,public af: AngularFireDatabase, public loadingCtrl: LoadingController, private accProv: AccountProvider, public modalCtrl: ModalController, private afauth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams,  private afFunc: AngularFireFunctions) {
+  public userCount;
+  public vendorCount;
+
+  constructor(private app:App,public af: AngularFireDatabase, public loadingCtrl: LoadingController, public appData: AppDataProvider,private accProv: AccountProvider, public modalCtrl: ModalController, private afauth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams,  private afFunc: AngularFireFunctions) {
     const uid = this.afauth.auth.currentUser.uid;
     let loading = this.loadingCtrl.create({
       spinner: 'dots'
     });
     loading.setShowBackdrop(false);
-    loading.present();
-    this.accProv.getStripeCustomerID(uid).first().subscribe(cust_id=>{
-      if (cust_id.payload.val()==null){
-        this.cust_id = null;
-        this.setInvoiceData();
-        this.customerLoaded = true;
-        loading.dismiss();
+    const user = this.afauth.auth.currentUser;
+
+    this.af.object('Users/'+user.uid).valueChanges().subscribe( obj =>{
+      this.isAdmin = false;
+      this.user = obj;
+      let role = this.user.role || "Default";
+      if (role == "admin"){ //if admin, show different page
+        this.isAdmin = true;
+        this.appData.getUserCount().subscribe(count=>{
+          this.userCount = count;
+        });
+        this.appData.getVendorCount().subscribe(count=>{
+          this.vendorCount = count;
+        });
       }else{
-        const id = cust_id.payload.val();
-        var getCustomerStripe = this.afFunc.httpsCallable('getCustomerStripe');
-        getCustomerStripe({"cust_id":id}).toPromise().then(result => {
-          if (result.customer.deleted){
-            //customer was deleted. Act as if not there. Webhook should remove data from firebase
+        loading.present();
+        this.accProv.getStripeCustomerID(uid).first().subscribe(cust_id=>{
+          if (cust_id.payload.val()==null){
             this.cust_id = null;
+            this.setInvoiceData();
             this.customerLoaded = true;
+            loading.dismiss();
           }else{
-            this.cust_id = cust_id.payload.val();
-            result.customer.sources.data.forEach(source => {
-              this.sources.push(source);
-              if (source.id === result.customer.default_source){
-                this.current_source = source;
+            const id = cust_id.payload.val();
+            var getCustomerStripe = this.afFunc.httpsCallable('getCustomerStripe');
+            getCustomerStripe({"cust_id":id}).toPromise().then(result => {
+              if (result.customer.deleted){
+                //customer was deleted. Act as if not there. Webhook should remove data from firebase
+                this.cust_id = null;
+                this.customerLoaded = true;
+              }else{
+                this.cust_id = cust_id.payload.val();
+                result.customer.sources.data.forEach(source => {
+                  this.sources.push(source);
+                  if (source.id === result.customer.default_source){
+                    this.current_source = source;
+                  }
+                },error => {
+                  alert(error.message);
+                });
+                this.customerLoaded = true;
               }
-            },error => {
-              alert(error.message);
+            }).then(()=>{
+              this.setInvoiceData();
+              loading.dismiss();
             });
-            this.customerLoaded = true;
           }
-        }).then(()=>{
-          this.setInvoiceData();
-          loading.dismiss();
+        })
+        this.accProv.getStripeSubscriptionID(uid).first().subscribe(data=>{
+          if (data.payload.val()==null){
+            this.sub_id = null;
+          }else{
+            this.sub_id = data.payload.val();
+          }
+        });
+        this.accProv.getStripeActive(uid).first().subscribe(data=>{
+          if (data.payload.val()==null){
+            this.active = null;
+          }else{
+            this.active = data.payload.val();
+          }
         });
       }
-    })
-    this.accProv.getStripeSubscriptionID(uid).first().subscribe(data=>{
-      if (data.payload.val()==null){
-        this.sub_id = null;
-      }else{
-        this.sub_id = data.payload.val();
-      }
     });
-    this.accProv.getStripeActive(uid).first().subscribe(data=>{
-      if (data.payload.val()==null){
-        this.active = null;
-      }else{
-        this.active = data.payload.val();
-      }
-    });
+    
     this.accProv.getName(uid).first().subscribe(data=>{
       if (data.payload.val()==null){
         this.full_name = null;

@@ -39,13 +39,13 @@ export class CreatedealPage {
   atFront: boolean = true;
   allDay: boolean = true;
   
-  min: string = moment().format('YYYY-MM-DD');
   user: any;
 
   dealType:string;
   startDate:string;
   startTime:string;
   endDate:string;
+  dateMax: string = moment().add('years',2).format('YYYY-MM-DD');
   endTime:string;
   discount: string;
   discountOf: string;

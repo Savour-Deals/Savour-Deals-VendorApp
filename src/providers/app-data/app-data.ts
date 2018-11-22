@@ -18,5 +18,11 @@ export class AppDataProvider {
   getItemImages(){
     return this.af.list('appData/PreselectImgs').valueChanges();
   }
+  getUserCount(){
+    return this.af.object('appData/user_count').valueChanges();
+  }
+  getVendorCount(){
+    return this.af.object('appData/vendor_count').valueChanges();
+  }
 
 }

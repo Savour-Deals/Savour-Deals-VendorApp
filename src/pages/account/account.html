@@ -49,10 +49,17 @@
       <span *ngIf="sub_id">
         <ion-list>
           <ion-item *ngIf="current_source">
-            <ion-icon name="card" item-start></ion-icon>
-            {{ current_source.card.brand }} ending in {{ current_source.card.last4 }}
-            <br> 
-            Expiration: {{ current_source.card.exp_month}} / {{current_source.card.exp_year}}
+            <span *ngIf="current_source.type == 'card'" >
+                <ion-icon name="card" item-start></ion-icon>
+                {{ current_source.card.brand }} ending in {{ current_source.card.last4 }}
+                <br> 
+                Expiration: {{ current_source.card.exp_month}} / {{current_source.card.exp_year}}
+            </span>
+            <span *ngIf="current_source.object == 'bank_account'" >
+                <ion-icon name="card" item-start></ion-icon>
+                Bank Account: {{ current_source.bank_name }} ending in {{ current_source.last4 }}
+            </span>
+
             
           </ion-item> 
         </ion-list>

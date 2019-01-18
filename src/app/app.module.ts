@@ -41,6 +41,8 @@ import { AccountPage } from '../pages/account/account';
 import { StripeJsPage } from '../pages/stripe-js/stripe-js';
 import { AngularFireFunctions } from 'angularfire2/functions';
 import { AccountProvider } from '../providers/account/account';
+import { RedemptionFeedPage } from '../pages/redemption-feed/redemption-feed';
+import { RedemptionProvider } from '../providers/redemptions/redemptions';
 
 
 
@@ -55,6 +57,7 @@ import { AccountProvider } from '../providers/account/account';
     ViewdealPage,
     ImgPopoverPage,
     EditItemPage,
+    RedemptionFeedPage,
     RootTabPage,
     AccountPage,
     StripeJsPage,
@@ -81,6 +84,7 @@ import { AccountProvider } from '../providers/account/account';
     RegisterPage,
     VendorPage,
     MainPage,
+    RedemptionFeedPage,
     ViewdealPage,
     ImgPopoverPage,
     EditItemPage,
@@ -98,7 +102,8 @@ import { AccountProvider } from '../providers/account/account';
     VendorsProvider,
     DealsProvider,
     AppDataProvider,
-    AccountProvider
+    AccountProvider,
+    RedemptionProvider
   ]
 })
 export class AppModule {}

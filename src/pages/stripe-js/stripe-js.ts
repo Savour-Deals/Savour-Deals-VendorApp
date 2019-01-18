@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, LoadingController, ViewController 
 import { AngularFireFunctions } from 'angularfire2/functions';
 import { AccountProvider } from '../../providers/account/account';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { environment as ENV } from '../../environments/environment.dev';
+
 
 
 declare var Stripe;
@@ -14,9 +16,8 @@ declare var Stripe;
 })
 export class StripeJsPage {
 
-  // stripe = Stripe('pk_test_MTFwtUt1ZtK46XEoHemLdqVo');
-  stripe = Stripe('pk_live_Xp05DnQBrOi2eU60XP06Jkj2');
-
+  //get stripe key based on prod or dev
+  stripe = Stripe(ENV.stripe_key);
   
   card: any;
   email: String = "";

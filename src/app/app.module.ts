@@ -16,7 +16,7 @@ import { Facebook } from '@ionic-native/facebook';
 
 //etc.
 import { IonicImageLoader } from 'ionic-image-loader';
-import { FIREBASE_CONFIG } from './app.firebase.config';
+import { environment as ENV } from '../environments/environment';
 import { MyApp } from './app.component';
 
 //providers
@@ -59,11 +59,11 @@ import { AccountProvider } from '../providers/account/account';
     AccountPage,
     StripeJsPage,
     PaymentPage
-   ],
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireModule.initializeApp(ENV.FIREBASE_CONFIG),
     AngularFireDatabaseModule,
     HttpClientModule,
     AngularFireAuthModule,

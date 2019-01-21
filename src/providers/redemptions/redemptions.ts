@@ -5,7 +5,7 @@ import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {Redemption} from '../../models/redemption';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { tap, take } from 'rxjs/operators';
 import { AccountProvider } from '../account/account';
 import { VendorModel } from '../../models/vendor';
@@ -35,8 +35,8 @@ export class RedemptionProvider {
 		return this.mapListKeys<Redemption>(
 			this.db.list <Redemption>('/Redemptions', ref => {//grab our redemption node
 				const query = ref 	//setup our query 
-					.orderByChild ('timestamp') 
-					.limitToFirst (limit);
+					.orderByChild('timestamp')
+					.limitToLast(limit);
 				return (this.lastKey)  
 					? query.startAt (this.lastKey) 
 					: query; 
@@ -47,11 +47,13 @@ export class RedemptionProvider {
 	mapListKeys<T>(list: AngularFireList<T>): Observable<T[]> { 
 		return list 
 			.snapshotChanges() 
-			.map(actions => 
-				actions.map(action => 
-					({key: action.key, ...action.payload.val()}) 
-				) 
-			); 
+			.map(actions => {
+				return actions.map(action => {
+					const data = action.payload.val() as any;
+					const key = action.key;
+					return ({key: key, ...data}); 
+				}); 
+			}); 
 	}
 
 	nextPage():Observable<Redemption[]>{

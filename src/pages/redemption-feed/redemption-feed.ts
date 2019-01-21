@@ -40,35 +40,35 @@ export class RedemptionFeedPage {
     this.redemptions = this.rp.getRedemptions$();
   }
 
-  infinite (infiniteScroll): Promise <void> {
+  doInfinite(infiniteScroll): Promise <void> {
     if (!this.rp.finished) {
-      return new Promise ((resolve, reject) => { 
-        this.rp.nextPage () 
-            .pipe (take(1)) 
-            .subscribe (redemptions => { 
-              console.log ('redemptions:', redemptions); 
+      return new Promise((resolve, reject) => { 
+        this.rp.nextPage() 
+            .pipe(take(1)) 
+            .subscribe(redemptions => { 
+              console.log('redemptions:', redemptions); 
               resolve(); 
             }); 
       }); 
     } 
-    return Promise.resolve (); 
+    return Promise.resolve(); 
   }
 
   timeSince(unixTime) {//using unix time in seconds, not ms
     var now = new Date();
-    var timeStamp = new Date(unixTime*1000);
+    var timeStamp = new Date(-1*unixTime*1000);//time is stored as *-1 for firebase indexing
 		var secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
 		if (secondsPast < 30){
 			return 'just now';
 		}
 		if(secondsPast < 60){
-			return secondsPast.toString() + 's';
+			return secondsPast.toFixed(0).toString() + 's';
 		}
 		if(secondsPast < 3600){
-			return (secondsPast/60).toString() + 'm';
+			return (secondsPast/60).toFixed(0).toString() + 'm';
 		}
 		if(secondsPast <= 86400){
-			return (secondsPast/3600).toString() + 'h';
+			return (secondsPast/3600).toFixed(0).toString() + 'h';
 		}
 		if(secondsPast > 86400){
 			let day = timeStamp.getDate();

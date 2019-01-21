@@ -1,12 +1,11 @@
 import { DealModel } from './deal';
 import { VendorModel } from './vendor';
-import { Observable } from "rxjs";
 
 export interface Redemption { 
 	deal_id: string; 
 	deal_photo: string; 
 	description: string;
-	timestamp: number;
+	timestamp: number;//time is stored as *-1 for firebase indexing
 	type : string;
 	user_id: string;
 	vendor_id: string;

@@ -1,6 +1,6 @@
 {
   "name": "savour_vendor_app",
-  "version": "0.0.1",
+  "version": "2.1.0",
   "author": "Savour Deals LLC",
   "homepage": "https://www.savourdeals.com",
   "private": true,
@@ -8,7 +8,7 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
-    "ionic:build": "node ./src/bin/pre-serve.js ionic-app-scripts build --aot --minifyjs --minifycss",
+    "ionic:build": "ionic-app-scripts build --aot --minifyjs --minifycss",
     "ionic:serve": "ionic-app-scripts serve",
     "ionic:serve:before": "node ./src/bin/env_script.js",
     "ionic:build:before": "node ./src/bin/env_script.js"
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.0",
-    "typescript": "~2.6.2"
+    "typescript": "^2.6.2"
   },
   "description": "Vendor app to allow Savour Deals vendors to manage their locations and deals.",
   "config": {

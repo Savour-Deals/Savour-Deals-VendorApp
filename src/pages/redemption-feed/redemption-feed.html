@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <ion-list> 
-    <ion-item *ngFor = "let redemption of redemptions | async"> 
+    <ion-item *ngFor = "let redemption of redemptions | async" text-wrap> 
       <ion-avatar item-start>
         <img-loader *ngIf="redemption.type === 'loyalty'"  src="{{redemption.vendor_photo}}" useImg></img-loader>
         <img-loader *ngIf="redemption.type === 'deal'"  src="{{redemption.deal_photo}}" useImg></img-loader>
@@ -31,7 +31,10 @@
   </ion-list>
   <ion-infinite-scroll 
     threshold = "20%" 
-    (ionInfinite) = "$event.waitFor (doInfinite ())"> 
-    <ion-infinite-scroll-content> </ion-infinite-scroll-content>    
+    (ionInfinite)="doInfinite($event)"> 
+    <ion-infinite-scroll-content> 
+        loadingSpinner="bubbles"
+        loadingText="Loading more..."
+    </ion-infinite-scroll-content>    
   </ion-infinite-scroll>
 </ion-content>

@@ -11,5 +11,27 @@
 
 
 <ion-content padding>
-
+  <ion-list> 
+    <ion-item *ngFor = "let redemption of redemptions | async"> 
+      <ion-avatar item-start>
+        <img-loader *ngIf="redemption.type === 'loyalty'"  src="{{redemption.vendor_photo}}" useImg></img-loader>
+        <img-loader *ngIf="redemption.type === 'deal'"  src="{{redemption.deal_photo}}" useImg></img-loader>
+      </ion-avatar>
+      <strong>
+        {{redemption.username}} redeemed a 
+        <span *ngIf="redemption.type === 'loyalty'" >{{redemption.type}}</span>
+        deal!
+      </strong>
+      <br>
+      {{redemption.description}} from 
+      <span *ngIf="redemption.type === 'loyalty' && redemption.vendor" >{{redemption.vendor.name}}</span>
+      <span *ngIf="redemption.type === 'deal' && redemption.deal" >{{redemption.deal.vendor_name}}</span>
+      <div item-end>{{timeSince(redemption.timestamp)}}</div>
+    </ion-item> 
+  </ion-list>
+  <ion-infinite-scroll 
+    threshold = "20%" 
+    (ionInfinite) = "$event.waitFor (doInfinite ())"> 
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>    
+  </ion-infinite-scroll>
 </ion-content>

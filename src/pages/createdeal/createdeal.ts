@@ -84,6 +84,7 @@ export class CreatedealPage {
       this.endDate = moment.unix(this.newDeal.end_time).format('YYYY-MM-DD');
       this.startTime = moment.unix(this.newDeal.start_time).format('HH:mm');
       this.endTime = moment.unix(this.newDeal.end_time).format('HH:mm');
+      this.dealDays = this.newDeal.active_days;
       this.downloadURL = deal.photo;
       if (this.startTime === this.endTime){
         this.allDay = true;

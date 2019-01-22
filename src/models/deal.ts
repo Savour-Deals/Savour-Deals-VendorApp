@@ -25,6 +25,7 @@ export class DealModel {
         this.vendor_name = '';
         this.deal_description = '';
         this.active_days = { mon: false, tues: false, wed: false, thur: false, fri: false, sat: false, sun : false };
+        this.redeemed = null;
     }
 
     fromDeal(deal: DealModel){
@@ -51,12 +52,16 @@ export class DealModel {
             mon: dealData.active_days.mon,
             tues: dealData.active_days.tues,
             wed: dealData.active_days.wed,
-            thur: dealData.active_days.thurs,
+            thur: dealData.active_days.thur,
             fri: dealData.active_days.fri,
             sat: dealData.active_days.sat,
             sun: dealData.active_days.sun
         }
-        this.redeemed = dealData.redeemed;
+        if (dealData.redeemed){
+            this.redeemed = dealData.redeemed;
+        }else{
+            this.redeemed = null;
+        }
         return this;
     }
 }

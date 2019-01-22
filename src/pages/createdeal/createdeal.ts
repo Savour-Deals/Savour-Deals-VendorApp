@@ -92,6 +92,7 @@ export class CreatedealPage {
         this.allDay = false;
       }
     }else{//this is truely a new deal. set up for a new one
+      this.newDeal = new DealModel();
       this.discountType = "percent";
       this.dealType = "Entree";
       this.newDeal.vendor_id = this.navParams.get("ID");

@@ -26,8 +26,7 @@
           <img-loader src="{{deal.photo}}" useImg></img-loader>
         </ion-avatar>
         <h2>{{deal.deal_description}}</h2>
-        <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
-        <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
+        <h3 >Redeemed {{dealRedemptions(deal)}} times</h3>
       </button>
       <br><br>
       <ion-list-header *ngIf="hasGroup(1)" (click)="accordianClick(1)" color="primary">
@@ -39,8 +38,7 @@
             <img-loader src="{{deal.photo}}" useImg></img-loader>
           </ion-avatar>
           <h2>{{deal.deal_description}}</h2>
-          <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
-          <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
+          <h3 >Redeemed {{dealRedemptions(deal)}} times</h3>
       </button>
       <br><br>
       <ion-list-header *ngIf="hasGroup(2)" (click)="accordianClick(2)" color="primary">
@@ -52,8 +50,7 @@
             <img-loader src="{{deal.photo}}" useImg></img-loader>
           </ion-avatar>
           <h2>{{deal.deal_description}}</h2>
-          <h3 *ngIf="deal.redeemed!==undefined">Redeemed {{deal.redeemed.length}} times</h3>
-          <h3 *ngIf="deal.redeemed===undefined">Redeemed 0 times</h3>
+          <h3 >Redeemed {{dealRedemptions(deal)}} times</h3>
       </button>
       <br><br>
     </ion-list>

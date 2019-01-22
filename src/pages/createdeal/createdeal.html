@@ -102,11 +102,11 @@
       <h3>When should we run this deal?</h3>
         <ion-item >
           <ion-label>Start Date</ion-label>
-          <ion-datetime displayFormat="MM-DD-YYYY" [(ngModel)]="startDate" [max]="dateMax"></ion-datetime>
+          <ion-datetime displayFormat="DDD DD, MM-YYYY" pickerFormat="DDD DD, MM-YYYY" [(ngModel)]="startDate" [max]="dateMax"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>End Date</ion-label>
-          <ion-datetime displayFormat="MM-DD-YYYY"  [(ngModel)]="endDate" [max]="dateMax"></ion-datetime>
+          <ion-datetime displayFormat="DDD DD, MM-YYYY" pickerFormat="DDD DD, MM-YYYY" [(ngModel)]="endDate" [max]="dateMax"></ion-datetime>
         </ion-item>
         <br>
         <br>

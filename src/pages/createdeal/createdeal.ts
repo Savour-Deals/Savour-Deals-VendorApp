@@ -1,3 +1,4 @@
+import { DealModel } from './../../models/deal';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, ViewController, NavParams, Slides,Navbar, AlertController, Platform, LoadingController, ModalController  } from 'ionic-angular';
 import * as moment from 'moment';
@@ -16,15 +17,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
   templateUrl: 'createdeal.html',
 })
 export class CreatedealPage {
-  newDeal = { 
-    start_time: 0,
-    end_time: 0,
-    vendor_id: '',
-    photo: '',
-    vendor_name: '',
-    deal_description: '',
-    active_days: { mon: false, tues: false, wed: false, thur: false, fri: false, sat: false, sun : false }
-  };
+  newDeal: DealModel;
 
   loaded: boolean = false;
   startedUpload: boolean = false;
@@ -45,7 +38,7 @@ export class CreatedealPage {
   startDate:string;
   startTime:string;
   endDate:string;
-  dateMax: string = moment().add('years',2).format('YYYY-MM-DD');
+  dateMax: string = moment().add(5,'years').format('YYYY-MM-DD');
   endTime:string;
   discount: string;
   discountOf: string;
@@ -69,21 +62,40 @@ export class CreatedealPage {
   } = { mon:true, tues:true, wed:true, thur:true, fri:true, sat:true, sun:true}
 
   imgArr: any[];
-   
   selectedImg: number = -1;
 
   discountType: string;
   storage: any;
   uid: string;
   ref: any;
+  editing = false;
 
   stripeID: string;
 
   constructor(public loadingCtrl: LoadingController, private afauth: AngularFireAuth,public af: AngularFireDatabase, public modalCtrl: ModalController,private afStorage: AngularFireStorage,public platform: Platform, public viewCtrl: ViewController, public navParams: NavParams, public alertCtrl: AlertController, public dealProv: DealsProvider, public appData: AppDataProvider) {
-    this.discountType = "percent";
-    this.dealType = "Entree";
-    this.newDeal.vendor_id = this.navParams.get("ID");
-    this.newDeal.vendor_name = this.navParams.get("name");
+    const deal = this.navParams.get("deal");
+    if (deal){//we are passing a deal in. Must be editing
+      this.editing = true;
+      this.newDeal = deal;
+      this.dealType = "Custom";
+      this.discountType = "custom";
+      this.discount = this.newDeal.deal_description;
+      this.startDate = moment.unix(this.newDeal.start_time).format('YYYY-MM-DD');
+      this.endDate = moment.unix(this.newDeal.end_time).format('YYYY-MM-DD');
+      this.startTime = moment.unix(this.newDeal.start_time).format('HH:mm');
+      this.endTime = moment.unix(this.newDeal.end_time).format('HH:mm');
+      this.downloadURL = deal.photo;
+      if (this.startTime === this.endTime){
+        this.allDay = true;
+      }else{
+        this.allDay = false;
+      }
+    }else{//this is truely a new deal. set up for a new one
+      this.discountType = "percent";
+      this.dealType = "Entree";
+      this.newDeal.vendor_id = this.navParams.get("ID");
+      this.newDeal.vendor_name = this.navParams.get("name");
+    }
     this.af.object('Users/'+this.afauth.auth.currentUser.uid).snapshotChanges().subscribe( obj =>{
       this.user = obj.payload.val();
       if(this.user != null){
@@ -111,9 +123,13 @@ export class CreatedealPage {
   }
 
   dismiss() {
+    var msg = 'Deal not yet created. Leaving now will delete any progress.';
+    if (this.editing){
+      msg = 'Changes have not been saved. Leaving now will delete any progress.'
+    }
     let alert = this.alertCtrl.create({
       title: 'Notice',
-      subTitle: 'Deal not yet created. Leaving now will delete any progress.',
+      subTitle: msg,
       buttons: [{
         text: 'Leave',
         role: 'destructive',
@@ -250,17 +266,25 @@ export class CreatedealPage {
   }
 
   confirmed(){
+    var msg = 'Hit CONFIRM to create your new deal. Once confirmed, you will NOT be able to edit this deal!';
+    if (this.editing){
+      msg = 'Hit CONFIRM to save changes to your deal.'
+    }
     let alert = this.alertCtrl.create({
       title: 'Confirm Deal',
-      subTitle: 'Hit CONFIRM to create your new deal. Once confirmed, you will NOT be able to edit this deal!',
+      subTitle: msg,
       buttons: [{
         text: 'No wait!'
       },{
         text: 'CONFIRM',
         role: 'destructive',
         handler: () => {
-          const key = this.dealProv.createDeal(this.newDeal);
-          this.newDeal['key'] = key; 
+          if(this.editing){
+            this.dealProv.updateDeal(this.newDeal);
+          }else{
+            const key = this.dealProv.createDeal(this.newDeal);
+            this.newDeal['key'] = key; 
+          }
           this.viewCtrl.dismiss(this.newDeal);
         }
       }

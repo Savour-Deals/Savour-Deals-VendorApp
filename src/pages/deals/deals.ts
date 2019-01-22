@@ -33,7 +33,7 @@ export class DealsPage {
       const now = moment().unix();
       const startOfToday = moment().startOf('day').unix();
       deals.forEach(dealSnap => {
-        const tempDeal = new DealModel(dealSnap);
+        const tempDeal = new DealModel().fromSnapshot(dealSnap);
         if (tempDeal.start_time > now){    //if now is before start time: Upcoming
           this.hasGroupNum[1] = true;
           this.upcomingDeals.push(tempDeal);
@@ -74,6 +74,13 @@ export class DealsPage {
       }    
     })
     dealModal.present();
+  }
+
+  dealRedemptions(deal){
+    if (deal.redeemed){
+      return Object.keys(deal.redeemed).length;
+    }
+    return 0;
   }
 
   dealClicked(key: string){

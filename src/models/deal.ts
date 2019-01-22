@@ -15,9 +15,30 @@ export class DealModel {
         sat: boolean;
         sun : boolean;
     }
-    redeemed = [];
+    redeemed: any;
 
-    constructor(deal: any) {
+    constructor(){
+        this.start_time = 0;
+        this.end_time = 0;
+        this.vendor_id = '';
+        this.photo = '';
+        this.vendor_name = '';
+        this.deal_description = '';
+        this.active_days = { mon: false, tues: false, wed: false, thur: false, fri: false, sat: false, sun : false };
+    }
+
+    fromDeal(deal: DealModel){
+        this.start_time = deal.start_time;
+        this.end_time = deal.end_time;
+        this.vendor_id = deal.vendor_id
+        this.photo = deal.photo
+        this.vendor_name = deal.vendor_name
+        this.deal_description = deal.deal_description
+        this.active_days = deal.active_days;
+        this.redeemed = deal.redeemed;
+    }
+
+    fromSnapshot(deal: any) {
         this.key = deal.key;
         const dealData = (deal.payload.val() as any);
         this.start_time = dealData.start_time;
@@ -35,8 +56,7 @@ export class DealModel {
             sat: dealData.active_days.sat,
             sun: dealData.active_days.sun
         }
-        if (dealData.redeemed){
-            this.redeemed = Object.keys(dealData.redeemed);
-        }
+        this.redeemed = dealData.redeemed;
+        return this;
     }
 }

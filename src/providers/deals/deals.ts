@@ -17,12 +17,20 @@ export class DealsProvider {
   }
   
   getDealByKey(key: string){
-    return this.af.list('Deals', ref => ref.orderByKey().equalTo(key)).snapshotChanges();
+    return this.af.object('Deals/'+key).snapshotChanges();
   }
 
   createDeal(newDeal: any){
     const dealsRef = this.af.list('Deals');
+    newDeal.key = null; //clear out the key since we dont store that on the DB
+    newDeal.redeemed = null;
     const newDealRef = dealsRef.push(newDeal);
     return newDealRef.key;
+  }
+
+  updateDeal(newDeal: any){
+    const dealsRef = this.af.object('Deals/'+newDeal.key);
+    newDeal.key = null; //clear out the key since we dont store that on the DB
+    dealsRef.update(newDeal);
   }
 }

@@ -86,11 +86,8 @@ export class RedemptionProvider {
 								});
 							});
 						}else if (redemption.type === 'deal'){
-							this.dp.getDealByKey(redemption.deal_id).subscribe(deals =>{
-								//get the location name. should just be one
-								deals.forEach(deal => {
-									redemption.deal = deal.payload.val() as DealModel;
-								});
+							this.dp.getDealByKey(redemption.deal_id).subscribe(dealsnap =>{
+								redemption.deal = new DealModel().fromSnapshot( dealsnap );
 							});
 						}
 					});

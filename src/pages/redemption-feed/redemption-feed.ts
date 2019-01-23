@@ -51,10 +51,9 @@ export class RedemptionFeedPage {
               resolve(); 
             }); 
       }); 
-    }else{
-      infiniteScroll.complete();
-      return Promise.resolve(); 
     }
+    infiniteScroll.complete();
+    return Promise.resolve(); 
   }
 
   timeSince(unixTime) {//using unix time in seconds, not ms

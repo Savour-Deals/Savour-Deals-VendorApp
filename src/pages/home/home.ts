@@ -7,6 +7,8 @@ import { User } from '../../models/user';
 import * as firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { RootTabPage } from '../root-tab/root-tab';
+import { environment as ENV } from '../../environments/environment.dev';
+
 
 @Component({
   selector: 'page-home',
@@ -18,6 +20,7 @@ export class HomePage {
   loader: any;
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
+  version = ENV.app_version;
   
 
   constructor(private afauth: AngularFireAuth, public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public af: AngularFireDatabase) {

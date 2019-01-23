@@ -14,8 +14,8 @@ import { DealModel } from '../../models/deal';
 @Injectable () 
 export class RedemptionProvider {
 	private _redemptions$ = new BehaviorSubject <Redemption[]>([]);  
-	limit = 8; //How many we show at a time 
-	lastKey = 0; 
+	limit = 100; //How many we show at a time 
+	lastKey; 
 	finished = false; // have we hit the bottom?
 
 	constructor ( 
@@ -36,9 +36,9 @@ export class RedemptionProvider {
 			this.db.list <Redemption>('/Redemptions', ref => {//grab our redemption node
 				const query = ref 	//setup our query 
 					.orderByChild('timestamp')
-					.limitToLast(limit);
-				return (this.lastKey)  
-					? query.startAt (this.lastKey) 
+					.limitToFirst(limit);
+				return (lastKey)  
+					? query.startAt (lastKey) 
 					: query; 
 			}) 
 		);
@@ -78,7 +78,7 @@ export class RedemptionProvider {
 								redemption.username = temp;
 							}
 						});
-						if (redemption.type === "loyalty"){
+						if (redemption.type === "loyalty" || redemption.type === "loyalty_checkin"){
 							this.vp.getVendorsByID(redemption.vendor_id).subscribe(locs =>{
 								//get the location name. should just be one
 								locs.forEach(loc => {

@@ -33,7 +33,7 @@
       <span *ngIf="redemption.type === 'deal' && redemption.deal" >{{redemption.deal.vendor_name}}</span>
 
       <!-- loyalty checkin -->
-      <span *ngIf="redemption.type === 'loyalty_checkin'">
+      <span *ngIf="redemption.type === 'loyalty_checkin' && redemption.vendor">
         <strong>
           {{redemption.username}} just checked in at {{redemption.vendor.name}}
         </strong>

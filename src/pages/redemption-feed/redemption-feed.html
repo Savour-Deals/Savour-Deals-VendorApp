@@ -15,22 +15,34 @@
     <ion-item *ngFor = "let redemption of redemptions | async" text-wrap> 
       <ion-avatar item-start>
         <img-loader *ngIf="redemption.type === 'loyalty'"  src="{{redemption.vendor_photo}}" useImg></img-loader>
+        <img-loader *ngIf="redemption.type === 'loyalty_checkin'"  src="{{redemption.vendor_photo}}" useImg></img-loader>
         <img-loader *ngIf="redemption.type === 'deal'"  src="{{redemption.deal_photo}}" useImg></img-loader>
       </ion-avatar>
-      <strong>
-        {{redemption.username}} redeemed a 
-        <span *ngIf="redemption.type === 'loyalty'" >{{redemption.type}}</span>
-        deal!
-      </strong>
-      <br>
-      {{redemption.description}} from 
+      
+      <!-- Deal or loyalty redeemed -->
+      <span *ngIf="redemption.type != 'loyalty_checkin'" >
+        <strong>
+          {{redemption.username}} redeemed a 
+          <span *ngIf="redemption.type === 'loyalty'" >{{redemption.type}}</span>
+          deal!
+        </strong>
+        <br>
+        {{redemption.description}} from 
+      </span>
       <span *ngIf="redemption.type === 'loyalty' && redemption.vendor" >{{redemption.vendor.name}}</span>
       <span *ngIf="redemption.type === 'deal' && redemption.deal" >{{redemption.deal.vendor_name}}</span>
+
+      <!-- loyalty checkin -->
+      <span *ngIf="redemption.type === 'loyalty_checkin'">
+        <strong>
+          {{redemption.username}} just checked in at {{redemption.vendor.name}}
+        </strong>
+      </span> 
+      
       <div item-end>{{timeSince(redemption.timestamp)}}</div>
     </ion-item> 
   </ion-list>
   <ion-infinite-scroll 
-    threshold = "20%" 
     (ionInfinite)="doInfinite($event)"> 
     <ion-infinite-scroll-content> 
         loadingSpinner="bubbles"

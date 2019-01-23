@@ -286,6 +286,7 @@ export class CreatedealPage {
           }else{
             const key = this.dealProv.createDeal(this.newDeal);
             this.newDeal['key'] = key; 
+            // this.createNotification(this.newDeal);
           }
           this.viewCtrl.dismiss(this.newDeal);
         }
@@ -294,6 +295,8 @@ export class CreatedealPage {
     });
     alert.present();
   }
+
+ 
 
   getDiscounts(type: string){
     var deals = [];
@@ -376,5 +379,6 @@ export class CreatedealPage {
     modal.present();
   }
 }
+
 
 

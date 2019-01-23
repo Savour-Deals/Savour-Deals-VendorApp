@@ -47,11 +47,14 @@ export class RedemptionFeedPage {
             .pipe(take(1)) 
             .subscribe(redemptions => { 
               console.log('redemptions:', redemptions); 
+              infiniteScroll.complete();
               resolve(); 
             }); 
       }); 
-    } 
-    return Promise.resolve(); 
+    }else{
+      infiniteScroll.complete();
+      return Promise.resolve(); 
+    }
   }
 
   timeSince(unixTime) {//using unix time in seconds, not ms

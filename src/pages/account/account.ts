@@ -9,7 +9,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { StripeJsPage } from '../stripe-js/stripe-js';
 import * as moment from 'moment';
 import { AppDataProvider } from '../../providers/app-data/app-data';
-
+import { environment as ENV } from '../../environments/environment';
 @IonicPage()
 @Component({
   selector: 'page-account',
@@ -18,6 +18,8 @@ import { AppDataProvider } from '../../providers/app-data/app-data';
 export class AccountPage {
   cust_id: any;
   active: any;
+  thiskeys = ENV.app_version + " " + ENV.stripe_key;
+
 
   customerLoaded = false;
   sub_id: any;

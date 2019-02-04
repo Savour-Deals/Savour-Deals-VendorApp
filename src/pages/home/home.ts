@@ -7,7 +7,7 @@ import { User } from '../../models/user';
 import * as firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { RootTabPage } from '../root-tab/root-tab';
-import { environment as ENV } from '../../environments/environment.dev';
+import { environment as ENV } from '../../environments/environment';
 
 
 @Component({

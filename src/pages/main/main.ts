@@ -8,6 +8,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Subscription } from 'rxjs';
 
 
+
 @IonicPage()
 @Component({
   selector: 'page-main',
@@ -20,6 +21,7 @@ export class MainPage {
   public active: boolean;
   public user: any;
   public isVendor: boolean = true;
+  public isAdmin: boolean = false;
   public isLoaded: boolean = false;
   private _userSub: Subscription;
   public get userSub(): Subscription {
@@ -67,6 +69,7 @@ export class MainPage {
       this.user = obj;
       let role = this.user.role || "Default";
       if (role == "admin"){
+        this.isAdmin = true;
         this.isVendor = true;
         this.active = true;
         this.vendProv.getVendors().subscribe(locs=>{

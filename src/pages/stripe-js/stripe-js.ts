@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ViewController 
 import { AngularFireFunctions } from 'angularfire2/functions';
 import { AccountProvider } from '../../providers/account/account';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { environment as ENV } from '../../environments/environment.dev';
+import { environment as ENV } from '../../environments/environment';
 
 
 

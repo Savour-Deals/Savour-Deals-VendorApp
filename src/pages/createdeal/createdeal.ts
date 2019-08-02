@@ -337,31 +337,48 @@ export class CreatedealPage {
         
         //Validate the File Height and Width.
         image.onload = function () {
+          var MAX_HEIGHT = 500
           var height = image.height;
           var width = image.width;
           if (height < 300 || width < 300) {
               alert("Please select a higher resolution photo or use one of our preselected options.");
               return false;
           }else{
-            let loading = tempThis.loadingCtrl.create({
-              content: 'Uploading image. This may take a minute, please wait...'
-            });
-            loading.present();
-            tempThis.loaded = false;
-            tempThis.startedUpload = true;
-            const randomId = Math.random().toString(36).substring(2)
-            tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.vendor_id+'/dealPhotos/'+randomId);
-            const task = tempThis.ref.put(fileUpload.files[0]);
-            task.snapshotChanges().pipe(
-              finalize(() => {
-                // tempThis.downloadURL = tempThis.ref.getDownloadURL()
-                tempThis.ref.getDownloadURL().subscribe(url => {
-                  tempThis.newDeal.photo = url;
-                  tempThis.downloadURL = url;
-                  loading.dismiss();          
-                });
-              })
-            ).subscribe()
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(image, 0, 0);
+            if (height > 500) {
+              //resize to 500pixels hight, keep aspect
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(function(blob){
+              let loading = tempThis.loadingCtrl.create({
+                content: 'Uploading image. This may take a minute, please wait...'
+              });
+              loading.present();
+              tempThis.loaded = false;
+              tempThis.startedUpload = true;
+              const randomId = Math.random().toString(36).substring(2)
+              tempThis.ref = tempThis.afStorage.ref('/Vendors/'+tempThis.newDeal.vendor_id+'/dealPhotos/'+randomId);
+              const task = tempThis.ref.put(blob);
+              task.snapshotChanges().pipe(
+                finalize(() => {
+                  // tempThis.downloadURL = tempThis.ref.getDownloadURL()
+                  tempThis.ref.getDownloadURL().subscribe(url => {
+                    tempThis.newDeal.photo = url;
+                    tempThis.downloadURL = url;
+                    loading.dismiss();          
+                  });
+                })
+              ).subscribe()
+            }, 'image/jpeg', 0.95);
+            
+            
+            
           }
         };
       }

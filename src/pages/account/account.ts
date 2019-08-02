@@ -18,7 +18,7 @@ import { environment as ENV } from '../../environments/environment';
 export class AccountPage {
   cust_id: any;
   active: any;
-  thiskeys = ENV.app_version + " " + ENV.stripe_key;
+  thiskeys = ENV.app_version;
 
 
   customerLoaded = false;

@@ -100,30 +100,45 @@ export class EditVendorPage {
         
         //Validate the File Height and Width.
         image.onload = function () {
+          var MAX_HEIGHT = 500
           var height = image.height;
           var width = image.width;
-          if (height < 10 || width < 10) {
+          if (height < 300 || width < 300) {
               alert("Please select a higher resolution photo.");
               return false;
           }else{
-            let loading = tempThis.loadingCtrl.create({
-              content: 'Uploading image. This may take a minute, please wait...'
-            });
-            loading.present();
-            // tempThis.loaded = false;
-            // tempThis.startedUpload = true;
-            tempThis.ref = tempThis.afStorage.ref('/Vendors/'+ tempThis.vendor.key + '/' + tempThis.vendor.key);
-            const task = tempThis.ref.put(fileUpload.files[0]);
-            task.snapshotChanges().pipe(
-              finalize(() => {
-                // tempThis.downloadURL = tempThis.ref.getDownloadURL()
-                tempThis.ref.getDownloadURL().subscribe(url => {
-                  tempThis.vendor.photo = url;
-                  tempThis.vendProv.editVendorInfo(tempThis.vendor.key, {"photo":url});
-                  loading.dismiss();          
-                });
-              })
-            ).subscribe()
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(image, 0, 0);
+            if (height > 500) {
+              //resize to 500pixels hight, keep aspect
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(function(blob){
+              let loading = tempThis.loadingCtrl.create({
+                content: 'Uploading image. This may take a minute, please wait...'
+              });
+              loading.present();
+              // tempThis.loaded = false;
+              // tempThis.startedUpload = true;
+              tempThis.ref = tempThis.afStorage.ref('/Vendors/'+ tempThis.vendor.key + '/' + tempThis.vendor.key);
+              const task = tempThis.ref.put(blob);
+              task.snapshotChanges().pipe(
+                finalize(() => {
+                  // tempThis.downloadURL = tempThis.ref.getDownloadURL()
+                  tempThis.ref.getDownloadURL().subscribe(url => {
+                    tempThis.vendor.photo = url;
+                    tempThis.vendProv.editVendorInfo(tempThis.vendor.key, {"photo":url});
+                    loading.dismiss();          
+                  });
+                })
+              ).subscribe()
+            }, 'image/jpeg', 0.95);
+            
           }
         };
       }

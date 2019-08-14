@@ -337,9 +337,9 @@ export class CreatedealPage {
         
         //Validate the File Height and Width.
         image.onload = function () {
-          var MAX_HEIGHT = 500
-          var height = image.height;
-          var width = image.width;
+          var MAX_HEIGHT = 800
+          var height = image.naturalHeight;
+          var width = image.naturalWidth;
           if (height < 300 || width < 300) {
               alert("Please select a higher resolution photo or use one of our preselected options.");
               return false;
@@ -347,8 +347,8 @@ export class CreatedealPage {
             var canvas = document.createElement("canvas");
             var ctx = canvas.getContext("2d");
             ctx.drawImage(image, 0, 0);
-            if (height > 500) {
-              //resize to 500pixels hight, keep aspect
+            if (height > MAX_HEIGHT) {
+              //resize to 800pixels hight, keep aspect
               width *= MAX_HEIGHT / height;
               height = MAX_HEIGHT;
             }

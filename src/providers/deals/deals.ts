@@ -9,7 +9,7 @@ export class DealsProvider {
   }
 
   getDeals(){
-    return this.af.list('Deals').snapshotChanges();
+    return this.af.list('Deals').snapshotChanges(['child_added']);
   }
 
   getDealsByID(ID: string){

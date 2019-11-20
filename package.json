@@ -23,7 +23,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
-    "@capacitor/cli": "^1.0.0-beta.7",
+    "@capacitor/cli": "^1.3.0",
     "@capacitor/core": "^1.0.0-beta.7",
     "@ionic-native/core": "4.9.1",
     "@ionic-native/facebook": "^4.12.2",
@@ -48,7 +48,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.2.0",
+    "@ionic/app-scripts": "^3.2.4",
     "typescript": "^2.6.2"
   },
   "description": "Vendor app to allow Savour Deals vendors to manage their locations and deals.",

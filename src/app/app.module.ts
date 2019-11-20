@@ -1,4 +1,3 @@
-import { PaymentPage } from './../pages/payment/payment';
 //angular
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -38,7 +37,6 @@ import { ImgPopoverPage } from '../pages/img-popover/img-popover';
 import { EditItemPage } from '../pages/edit-item/edit-item';
 import { RootTabPage } from '../pages/root-tab/root-tab';
 import { AccountPage } from '../pages/account/account';
-import { StripeJsPage } from '../pages/stripe-js/stripe-js';
 import { AngularFireFunctions } from 'angularfire2/functions';
 import { AccountProvider } from '../providers/account/account';
 import { RedemptionFeedPage } from '../pages/redemption-feed/redemption-feed';
@@ -59,9 +57,7 @@ import { RedemptionProvider } from '../providers/redemptions/redemptions';
     EditItemPage,
     RedemptionFeedPage,
     RootTabPage,
-    AccountPage,
-    StripeJsPage,
-    PaymentPage
+    AccountPage
   ],
   imports: [
     BrowserModule,
@@ -89,9 +85,7 @@ import { RedemptionProvider } from '../providers/redemptions/redemptions';
     ImgPopoverPage,
     EditItemPage,
     RootTabPage,
-    AccountPage,
-    StripeJsPage,
-    PaymentPage
+    AccountPage
   ],
   providers: [
     SplashScreen,

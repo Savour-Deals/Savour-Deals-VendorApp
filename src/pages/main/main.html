@@ -14,15 +14,11 @@
   
   <span *ngIf="isLoaded" >
     <div *ngIf='isVendor'>
-
-      <div  *ngIf="!active"  class="center" > 
-        <h4>Your subscription to Savour Deals is currently not active. Please set up a payment through the accounts tab.</h4>
-      </div>  
-      <div *ngIf="1 > locations?.length" [hidden]="!active" class="center">
+      <div *ngIf="1 > locations?.length" class="center">
         <h4>You have no locations! Contact us for help getting set up.</h4>
       </div>
       <ion-list>
-        <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])" [disabled]="!active" text-wrap>
+        <button ion-item *ngFor="let location of locations; let i = index" [attr.data-index]="i" (click)="locationClicked(location.name, keys[i])" text-wrap>
           <ion-avatar item-start>
             <img-loader src="{{location.photo}}" useImg></img-loader>
           </ion-avatar>

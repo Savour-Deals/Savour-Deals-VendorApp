@@ -18,7 +18,6 @@ export class MainPage {
   public locations = [];
 
   public keys = [];
-  public active: boolean;
   public user: any;
   public isVendor: boolean = true;
   public isAdmin: boolean = false;
@@ -71,7 +70,6 @@ export class MainPage {
       if (role == "admin"){
         this.isAdmin = true;
         this.isVendor = true;
-        this.active = true;
         this.vendProv.getVendors().subscribe(locs=>{
           locs.forEach(loc => {
             var idx = this.keys.indexOf(loc.payload.key)
@@ -86,11 +84,6 @@ export class MainPage {
         });
       }else if (role == "vendor"){
         this.isVendor = true;
-        if (this.user.stripe){
-          this.active = this.user.stripe.active;
-        } else{
-          this.active = false;
-        }
         var l = [];
 
         //Get locations this vendor has
@@ -124,7 +117,7 @@ export class MainPage {
     });
   }
 
-  locationClicked(placeName, id, stripe){
+  locationClicked(placeName, id){
     this.navCtrl.push(VendorPage, {
       name: placeName,
       ID: id

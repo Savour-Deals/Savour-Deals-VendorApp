@@ -32,7 +32,7 @@
     "@ionic-native/status-bar": "4.9.1",
     "@ionic/lab": "^1.0.11",
     "@ionic/storage": "2.1.3",
-    "angular": "^1.7.4",
+    "angular": "^1.8.0",
     "angularfire2": "^5.0.1",
     "cordova-plugin-facebook4": "^2.4.0",
     "firebase": "^5.4.2",
